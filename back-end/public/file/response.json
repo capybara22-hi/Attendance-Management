@@ -1,0 +1,1210 @@
+{
+	"UserInfoSearch": {
+		"searchID": "1",
+		"responseStatusStrg": "MORE",
+		"numOfMatches": 30,
+		"totalMatches": 74,
+		"UserInfo": [
+			{
+				"employeeNo": "NV0056",
+				"name": "Trần Việt Hoàn",
+				"userType": "normal",
+				"sortByNamePosition": 0,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-08-07T10:22:51",
+					"endTime": "2035-08-07T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000001.jpg@WEB000000004284"
+			},
+			{
+				"employeeNo": "I009",
+				"name": "Lê Văn Thời",
+				"userType": "normal",
+				"sortByNamePosition": 1,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000002.jpg@WEB000000004285"
+			},
+			{
+				"employeeNo": "I010",
+				"name": "Nguyễn Như Nhất Vũ",
+				"userType": "normal",
+				"sortByNamePosition": 2,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000003.jpg@WEB000000004286"
+			},
+			{
+				"employeeNo": "I012",
+				"name": "Nguyễn Bá Huân",
+				"userType": "normal",
+				"sortByNamePosition": 3,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000004.jpg@WEB000000004287"
+			},
+			{
+				"employeeNo": "NV0052",
+				"name": "Quách Tất Hoàn",
+				"userType": "normal",
+				"sortByNamePosition": 4,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-08-07T14:47:12",
+					"endTime": "2035-08-07T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000005.jpg@WEB000000004288"
+			},
+			{
+				"employeeNo": "NV0058",
+				"name": "Nguyễn Thu Trang",
+				"userType": "normal",
+				"sortByNamePosition": 5,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-08-07T15:11:31",
+					"endTime": "2035-08-07T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000006.jpg@WEB000000004289"
+			},
+			{
+				"employeeNo": "TV0007",
+				"name": "Nguyễn Thị Hà My",
+				"userType": "normal",
+				"sortByNamePosition": 6,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-08-07T15:39:09",
+					"endTime": "2035-08-07T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000007.jpg@WEB000000004290"
+			},
+			{
+				"employeeNo": "I011",
+				"name": "Thái Phạm Hữu Thắng",
+				"userType": "normal",
+				"sortByNamePosition": 7,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000008.jpg@WEB000000004291"
+			},
+			{
+				"employeeNo": "TV0008",
+				"name": "Lê Minh Bảo Châu",
+				"userType": "normal",
+				"sortByNamePosition": 8,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-08-08T14:33:31",
+					"endTime": "2035-08-08T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 0,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000009.jpg@WEB000000004292"
+			},
+			{
+				"employeeNo": "NV0059",
+				"name": "Nguyễn Thị Hà My",
+				"userType": "normal",
+				"sortByNamePosition": 9,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-08-13T07:00:00",
+					"endTime": "2035-08-12T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 0,
+				"numOfFP": 0,
+				"numOfFace": 0,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "NULL"
+			},
+			{
+				"employeeNo": "NV0060",
+				"name": "Thái Phạm Hữu Thắng",
+				"userType": "normal",
+				"sortByNamePosition": 10,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-08-13T07:00:00",
+					"endTime": "2035-08-12T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 0,
+				"numOfFP": 0,
+				"numOfFace": 0,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "NULL"
+			},
+			{
+				"employeeNo": "I007",
+				"name": "Bùi Công Anh",
+				"userType": "normal",
+				"sortByNamePosition": 11,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000010.jpg@WEB000000004293"
+			},
+			{
+				"employeeNo": "I008",
+				"name": "Nguyễn Ngọc Anh",
+				"userType": "normal",
+				"sortByNamePosition": 12,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000011.jpg@WEB000000004294"
+			},
+			{
+				"employeeNo": "I003",
+				"name": "Nguyễn Đức Tuấn",
+				"userType": "normal",
+				"sortByNamePosition": 13,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000012.jpg@WEB000000004295"
+			},
+			{
+				"employeeNo": "NV007",
+				"name": "Nguyễn Tiến Đạt",
+				"userType": "normal",
+				"sortByNamePosition": 14,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-08-07T10:14:07",
+					"endTime": "2035-08-07T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000013.jpg@WEB000000004296"
+			},
+			{
+				"employeeNo": "NV0010",
+				"name": "Phạm Thọ Thái Dương",
+				"userType": "normal",
+				"sortByNamePosition": 15,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000014.jpg@WEB000000004297"
+			},
+			{
+				"employeeNo": "NV0025",
+				"name": "Nguyễn Đức Mạnh",
+				"userType": "normal",
+				"sortByNamePosition": 16,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000015.jpg@WEB000000004298"
+			},
+			{
+				"employeeNo": "NV0044",
+				"name": "Trương Ánh Thuận",
+				"userType": "normal",
+				"sortByNamePosition": 17,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000016.jpg@WEB000000004299"
+			},
+			{
+				"employeeNo": "NV0047",
+				"name": "Nguyễn Ngọc Quyết",
+				"userType": "normal",
+				"sortByNamePosition": 18,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-08-07T10:21:48",
+					"endTime": "2035-08-07T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000017.jpg@WEB000000004300"
+			},
+			{
+				"employeeNo": "NV0039",
+				"name": "Quản Quốc Thịnh",
+				"userType": "normal",
+				"sortByNamePosition": 19,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 3,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000018.jpg@WEB000000004301"
+			},
+			{
+				"employeeNo": "NV0048",
+				"name": "Doãn Việt Anh",
+				"userType": "normal",
+				"sortByNamePosition": 20,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-08-07T10:22:37",
+					"endTime": "2035-08-07T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000019.jpg@WEB000000004302"
+			},
+			{
+				"employeeNo": "NV0005",
+				"name": "Hoàng Thị Mai Chi",
+				"userType": "normal",
+				"sortByNamePosition": 21,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000020.jpg@WEB000000004303"
+			},
+			{
+				"employeeNo": "NV0023",
+				"name": "Bùi Thị Lan",
+				"userType": "normal",
+				"sortByNamePosition": 22,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000021.jpg@WEB000000004304"
+			},
+			{
+				"employeeNo": "NV0024",
+				"name": "Nguyễn Thị Thảo Ly",
+				"userType": "normal",
+				"sortByNamePosition": 23,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 1,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000022.jpg@WEB000000004305"
+			},
+			{
+				"employeeNo": "TV0003",
+				"name": "Ngô Nguyên Thành",
+				"userType": "normal",
+				"sortByNamePosition": 24,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-08-07T09:38:51",
+					"endTime": "2035-08-07T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000023.jpg@WEB000000004306"
+			},
+			{
+				"employeeNo": "TV0005",
+				"name": "Vũ Thị An Phương",
+				"userType": "normal",
+				"sortByNamePosition": 25,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-08-07T09:39:10",
+					"endTime": "2035-08-07T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000024.jpg@WEB000000004307"
+			},
+			{
+				"employeeNo": "I001",
+				"name": "Nguyễn Gia Long",
+				"userType": "normal",
+				"sortByNamePosition": 26,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000025.jpg@WEB000000004308"
+			},
+			{
+				"employeeNo": "I002",
+				"name": "Nguyễn Chí Minh",
+				"userType": "normal",
+				"sortByNamePosition": 27,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000026.jpg@WEB000000004309"
+			},
+			{
+				"employeeNo": "I004",
+				"name": "Phạm Trọng Đan",
+				"userType": "normal",
+				"sortByNamePosition": 28,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000027.jpg@WEB000000004310"
+			},
+			{
+				"employeeNo": "I005",
+				"name": "Trần Đức Hiếu",
+				"userType": "normal",
+				"sortByNamePosition": 29,
+				"sortByNameFlag": "#",
+				"closeDelayEnabled": false,
+				"Valid": {
+					"enable": true,
+					"beginTime": "2025-09-05T00:00:00",
+					"endTime": "2035-09-04T23:59:59",
+					"timeType": "local"
+				},
+				"belongGroup": "",
+				"password": "",
+				"doorRight": "1",
+				"RightPlan": [
+					{
+						"doorNo": 1,
+						"planTemplateNo": "1"
+					}
+				],
+				"maxOpenDoorTime": 0,
+				"openDoorTime": 0,
+				"roomNumber": 0,
+				"floorNumber": 0,
+				"localUIRight": false,
+				"gender": "male",
+				"numOfCard": 1,
+				"numOfFP": 2,
+				"numOfFace": 1,
+				"groupId": 1,
+				"localAtndPlanTemplateId": 0,
+				"PersonInfoExtends": [
+					{
+						"value": ""
+					}
+				],
+				"faceURL": "http://192.168.1.30/LOCALS/pic/enrlFace/0/0000000028.jpg@WEB000000004311"
+			}
+		]
+	}
+}
