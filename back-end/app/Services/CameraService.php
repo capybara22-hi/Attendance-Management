@@ -69,8 +69,8 @@ class CameraService
                     "minor" => 75,
                     // 'startTime' => $today . 'T00:00:00+07:00',
                     // 'endTime'   => $today . 'T23:59:59+07:00',
-                    "startTime" => "2026-02-09T00:00:00+07:00",
-                    "endTime" => "2026-02-09T23:59:59+07:00",
+                    "startTime" => "2026-02-10T00:00:00+07:00",
+                    "endTime" => "2026-02-10T23:59:59+07:00",
                 ]
             ];
 
@@ -96,14 +96,14 @@ class CameraService
 
     public function processAttendance()
     {
-        // $get_data = Storage::get("file_test/event.json");
+        $get_data = Storage::get("file_test/event.json");
 
-        // $employee = json_decode($get_data, true);
+        $employee = json_decode($get_data, true);
 
         // Lấy dữ liệu chấm công từ API thứ 2
-        $employee_data = $this->get_user();
+        // $employee_data = $this->get_user();
 
-        $employee = end($employee_data);
+        // $employee = end($employee_data);
         // dd($employee_data);
 
         $user = User::where('employeeNo', $employee['employeeNoString'])->first();
