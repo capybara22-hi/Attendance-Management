@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\Attendance;
 use App\Models\User;
+use App\Models\UserLogEvent;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
@@ -69,8 +71,8 @@ class CameraService
                     "minor" => 75,
                     // 'startTime' => $today . 'T00:00:00+07:00',
                     // 'endTime'   => $today . 'T23:59:59+07:00',
-                    "startTime" => "2026-02-10T00:00:00+07:00",
-                    "endTime" => "2026-02-10T23:59:59+07:00",
+                    "startTime" => "2026-02-12T00:00:00+07:00",
+                    "endTime" => "2026-02-12T23:59:59+07:00",
                 ]
             ];
 

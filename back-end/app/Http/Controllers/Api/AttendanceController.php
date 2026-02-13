@@ -56,7 +56,7 @@ class AttendanceController extends Controller
      */
     public function processAttendance()
     {
-        $result = $this->get_data->processAttendance();
+        $result = $this->get_data->postAttendance();
 
         return response()->json([
             'success' => $result['success'],
