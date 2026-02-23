@@ -56,13 +56,12 @@ class AttendanceController extends Controller
      */
     public function processAttendance()
     {
-        $result = $this->get_data->postAttendance();
+        $result = $this->get_data->test_attendance();
 
         return response()->json([
-            'success' => $result['success'],
-            'message' => $result['message'],
-            'data' => $result['data'] ?? null
-        ], $result['status_code']);
+            'success' => true,
+            'message' => 'Thêm dữ liệu thành công!',
+        ]);
     }
 
     /**

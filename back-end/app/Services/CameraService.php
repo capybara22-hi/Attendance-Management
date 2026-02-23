@@ -6,6 +6,7 @@ use App\Models\Attendance;
 use App\Models\User;
 use App\Models\UserLogEvent;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
@@ -85,7 +86,7 @@ class CameraService
 
             $data = $response->json();
 
-            $users = $data['AcsEvent']['InfoList'];
+            $users = $data['AcsEvent']['InfoList'] ?? [];
 
             $list_users_event = array_merge($list_users_event, $users);
 
@@ -107,60 +108,34 @@ class CameraService
 
         // $employee = end($employee_data);
         // dd($employee_data);
+    }
 
-        $user = User::where('employeeNo', $employee['employeeNoString'])->first();
+    // Viết hàm thực hiện lấy dữ liệu chấm công từ tháng 1 cho đến hiện tại
+    public function test_attendance()
+    {
 
-        // Check nhân viên có tồn tại hay không
-        if (!$user) {
-            return [
-                'success' => false,
-                'message' => "Không tồn tại nhân viên!",
-                'status_code' => 404
-            ];
+        $attendanceData = UserLogEvent::selectRaw('
+            employeeNo,
+            name,
+            DATE(time) as date,
+            MIN(time) as check_in,
+            MAX(time) as check_out
+        ')
+            ->groupBy('employeeNo', DB::raw('DATE(time)'), 'name')
+            ->orderBy('date', 'desc')
+            ->get();
+
+        foreach ($attendanceData as $data) {
+            Attendance::updateOrCreate(
+                [
+                    'user_id' => $data->employeeNo,
+                    'date' => $data->date,
+                ],
+                [
+                    'check_in' => $data->check_in,
+                    'check_out' => $data->check_out,
+                ]
+            );
         }
-
-        // Kiểm tra xem đã tồn tại trong bảng chấm công chưa
-        $checked = Attendance::where('user_id', $employee['employeeNoString'])
-            ->whereDate('check_time', today())
-            ->latest()
-            ->first();
-
-        if (!$checked) {
-            $attendance = Attendance::create([
-                'user_id' => $user->employeeNo,
-                'check_time' => $employee['time'], // Phải lấy thời gian từ camera
-                'type' => 'in',
-                'image' => $employee['pictureURL']
-            ]);
-
-            return [
-                'success' => true,
-                'message' => 'Check in thành công!',
-                'data' => $attendance,
-                'status_code' => 200
-            ];
-        }
-
-        if ($checked->type == 'in') {
-            $attendance = Attendance::create([
-                'user_id' => $user->employeeNo,
-                'check_time' => $employee['time'],
-                'type' => 'out',
-                'image' => $employee['pictureURL']
-            ]);
-
-            return [
-                'success' => true,
-                'message' => 'Check out thành công!',
-                'data' => $attendance,
-                'status_code' => 200
-            ];
-        }
-
-        return [
-            'success' => false,
-            'message' => 'Hết lượt chấm công hôm nay!',
-            'status_code' => 400
-        ];
     }
 }
