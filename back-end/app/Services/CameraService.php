@@ -113,6 +113,8 @@ class CameraService
     // Viết hàm thực hiện lấy dữ liệu chấm công từ tháng 1 cho đến hiện tại
     public function test_attendance()
     {
+        // Lấy danh sách employeeNo có tồn tại trong bảng users
+        $existingEmployeeNos = User::pluck('employeeNo')->toArray();
 
         $attendanceData = UserLogEvent::selectRaw('
             employeeNo,
@@ -121,6 +123,7 @@ class CameraService
             MIN(time) as check_in,
             MAX(time) as check_out
         ')
+            ->whereIn('employeeNo', $existingEmployeeNos)
             ->groupBy('employeeNo', DB::raw('DATE(time)'), 'name')
             ->orderBy('date', 'desc')
             ->get();

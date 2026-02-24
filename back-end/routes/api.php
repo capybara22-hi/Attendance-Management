@@ -24,7 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('users', UserController::class);
 
 // API quản lý chấm công
-Route::apiResource('attendances', AttendanceController::class);
+// Route::apiResource('attendances', AttendanceController::class);
 
 // API xử lý chấm công từ camera
+Route::get('attendances', [AttendanceController::class, 'index']);
+Route::get('attendances/{id}', [AttendanceController::class, 'show']);
 Route::post('attendance/check', [AttendanceController::class, 'processAttendance']);

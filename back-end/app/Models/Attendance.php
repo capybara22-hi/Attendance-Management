@@ -18,11 +18,7 @@ class Attendance extends Model
         'check_out',
     ];
 
-    protected $casts = [
-        'date' => 'date',
-        'check_in' => 'datetime',
-        'check_out' => 'datetime',
-    ];
+    // Không cast để tránh timezone conversion
 
     public function user()
     {

@@ -12,15 +12,4 @@ use Illuminate\Support\Facades\DB;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    public function index()
-    {
-        // $json = file_get_contents(public_path('file/response.json'));
-
-        // $data = json_decode($json, true);
-
-        // $users = $data['UserInfoSearch']['UserInfo'];
-
-        return view('welcome', compact('users'));
-    }
 }
