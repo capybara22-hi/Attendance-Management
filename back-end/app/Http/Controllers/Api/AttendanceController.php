@@ -63,13 +63,11 @@ class AttendanceController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Lấy dữ liệu thành công!',
-            'data' => [
-                'data' => AttendanceResource::collection($data->items()),
-                'current_page' => $data->currentPage(),
-                'last_page' => $data->lastPage(),
-                'per_page' => $data->perPage(),
-                'total' => $data->total(),
-            ]
+            'data' => AttendanceResource::collection($data->items()),
+            'current_page' => $data->currentPage(),
+            'last_page' => $data->lastPage(),
+            'per_page' => $data->perPage(),
+            'total' => $data->total(),
         ]);
     }
 

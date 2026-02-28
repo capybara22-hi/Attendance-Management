@@ -1,20 +1,32 @@
 import { useState, useEffect } from "react";
 
 function Main() {
-    const [employees, setEmployees] = useState([]);
+    const [attendances, setAttendance] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // useEffect(() => {
+    //     fetch("http://localhost:8000/api/attendances")
+    //         .then((res) => res.json())
+    //         .then((response) => {
+    //             if (response.success) {
+    //                 setEmployees(response.data);
+    //             }
+    //         })
+    //         .catch((err) => console.error(err))
+    //         .finally(() => setLoading(false));
+    // }, []);
+
     useEffect(() => {
-        fetch("http://localhost:8000/api/attendances")
+        fetch("http://127.0.0.1:8000/api/attendances")
             .then((res) => res.json())
-            .then((response) => {
-                if (response.success) {
-                    setEmployees(response.data);
-                }
-            })
-            .catch((err) => console.error(err))
+            .then((data) => setAttendance(data.data))
+            .catch((err) => console.log(err))
             .finally(() => setLoading(false));
     }, []);
+
+    if (loading) {
+        return <p>Loading...</p>
+    }
 
     return (
         <>
@@ -47,33 +59,30 @@ function Main() {
             </div>
             <div className="w-full bg-white p-4 mt-6 rounded-md">
                 <table className="w-full text-center rounded-md">
-                    <tr className="bg-[#F6F6FE] border-b-2">
-                        <th className="p-2">STT</th>
-                        <th className="p-2">Mã nhân viên</th>
-                        <th className="p-2">Họ và tên</th>
-                        {/* <th className="p-2">Phòng ban</th> */}
-                        <th className="p-2">Ngày</th>
-                        <th className="p-2">Giờ chấm công</th>
-                        <th className="p-2">Loại</th>
-                    </tr>
-                    {employees.map((emp, index) => {
-                        const checkTime = new Date(emp.check_time);
-                        const date = checkTime.toLocaleDateString('vi-VN');
-                        const time = checkTime.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+                    <thead>
+                        <tr className="bg-[#F6F6FE] border-b-2">
+                            <th className="p-2">STT</th>
+                            <th className="p-2">Mã nhân viên</th>
+                            <th className="p-2">Họ và tên</th>
+                            <th className="p-2">Ngày</th>
+                            <th className="p-2">Giờ vào</th>
+                            <th className="p-2">Giờ ra</th>
+                            <th className="p-2">Tổng giờ</th>
+                            <th className="p-2">Hình ảnh</th>
+                        </tr>
+                    </thead>
 
+                    {attendances.map((emp, index) => {
                         return (
                             <tr key={emp.id}>
                                 <td className="p-2">{index + 1}</td>
-                                <td className="p-2">{emp.user_id}</td>
-                                <td className="p-2">{emp.user?.name || '-'}</td>
-                                {/* <td className="p-2">{emp.user?.department_id || '-'}</td> */}
-                                <td className="p-2">{date}</td>
-                                <td className="p-2">{time}</td>
-                                <td className="p-2">
-                                    <span className={`px-2 py-1 rounded ${emp.type === 'in' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                                        {emp.type === 'in' ? 'Vào' : 'Ra'}
-                                    </span>
-                                </td>
+                                <td className="p-2">{emp.employeeNo}</td>
+                                <td className="p-2">{emp.name || '-'}</td>
+                                <td className="p-2">{emp.date}</td>
+                                <td className="p-2">{emp.check_in}</td>
+                                <td className="p-2">{emp.check_out}</td>
+                                <td className="p-2">8</td>
+                                <td className="p-2 text-blue-500">Xem</td>
                             </tr>
                         )
                     })}

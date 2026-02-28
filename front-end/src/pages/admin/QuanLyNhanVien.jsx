@@ -16,6 +16,10 @@ function Employee() {
             .finally(() => setLoading(false));
     }, []);
 
+    if (loading) {
+        return <p>Loading...</p>
+    }
+
     return (
         <>
             <p className="text-[#4154F1] text-2xl font-semibold mb-4">Danh sách nhân viên</p>
