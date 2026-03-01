@@ -44,12 +44,7 @@ class AttendanceController extends Controller
 
         // Điều kiện lọc 
         if ($request->date) {
-            try {
-                $dateFormatted = Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d');
-                $list_attendance->whereDate('date', $dateFormatted);
-            } catch (\Exception $e) {
-                $list_attendance->whereDate('date', $request->date);
-            }
+            $list_attendance->whereDate('date', $request->date);
         }
 
         if ($request->employeeNo) {

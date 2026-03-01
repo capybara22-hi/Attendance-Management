@@ -24,7 +24,7 @@ class RequestFillter extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'nullable|date_format:d/m/Y',
+            'date' => 'nullable',
             'department_id' => 'nullable|string|max:100',
             'employeeNo' => 'nullable|string|max:50|exists:users,employeeNo',
             'recordInPage' => 'nullable|integer|min:1|max:100'
@@ -39,7 +39,6 @@ class RequestFillter extends FormRequest
     public function messages()
     {
         return [
-            'date.date_format' => 'Định dạng ngày phải là dd/mm/yyyy (ví dụ: 24/02/2026)',
             'employeeNo.exists' => 'Mã nhân viên không tồn tại',
             'recordInPage.integer' => 'Số bản ghi phải là số nguyên',
             'recordInPage.min' => 'Số bản ghi tối thiểu là 1',

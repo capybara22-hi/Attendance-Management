@@ -58,12 +58,12 @@ function Employee() {
                     </tr>
                     {employees.map((emp, index) => (
                         <tr key={emp.employeeNo}>
-                            <td className="p-2">{index + 1}</td>
-                            <td className="p-2">{emp.employeeNo}</td>
-                            <td className="p-2">{emp.name}</td>
+                            <td className="p-2 border">{index + 1}</td>
+                            <td className="p-2 border">{emp.employeeNo}</td>
+                            <td className="p-2 border">{emp.name}</td>
                             {/* <td className="p-2">-</td> */}
-                            <td className="p-2">{emp.department_id || '-'}</td>
-                            <td className="p-2">Đang làm</td>
+                            <td className="p-2 border">{emp.department_id || '-'}</td>
+                            <td className="p-2 border">Đang làm</td>
                         </tr>
                     ))}
                 </table>
