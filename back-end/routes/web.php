@@ -14,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', [AttendanceController::class, 'processAttendance']);
-
+// Route::get('/', [AttendanceController::class, 'test_list_user']);
 Route::get('/real-event', [AttendanceController::class, 'index']);

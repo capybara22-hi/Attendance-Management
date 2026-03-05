@@ -51,6 +51,13 @@ class AttendanceController extends Controller
             $list_attendance->where('employeeNo', $request->employeeNo);
         }
 
+        if ($request->search) {
+            $list_attendance->where(function ($query) use ($request) {
+                $query->where('users.name', 'like', '%' . $request->search . '%')
+                    ->orWhere('users.employeeNo', 'like', '%' . $request->search . '%');
+            });
+        }
+
         $recordInPage = $request->recordInPage ?? 20;
 
         $data = $list_attendance->orderBy('date', 'desc')->paginate($recordInPage);
