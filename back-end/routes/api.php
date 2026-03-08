@@ -28,5 +28,6 @@ Route::apiResource('users', UserController::class);
 
 // API xử lý chấm công từ camera
 Route::get('attendances', [AttendanceController::class, 'index']);
+Route::get('attendances/viewall', [AttendanceController::class, 'viewAll']);
 Route::get('attendances/{id}', [AttendanceController::class, 'show']);
 Route::post('attendance/check', [AttendanceController::class, 'processAttendance']);

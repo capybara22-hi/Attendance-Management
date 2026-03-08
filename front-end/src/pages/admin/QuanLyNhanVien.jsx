@@ -4,17 +4,17 @@ function Employee() {
     const [employees, setEmployees] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // useEffect(() => {
-    //     fetch("http://localhost:8000/api/users")
-    //         .then((res) => res.json())
-    //         .then((response) => {
-    //             if (response.success) {
-    //                 setEmployees(response.data);
-    //             }
-    //         })
-    //         .catch((err) => console.error(err))
-    //         .finally(() => setLoading(false));
-    // }, []);
+    useEffect(() => {
+        fetch("http://localhost:8000/api/users")
+            .then((res) => res.json())
+            .then((response) => {
+                if (response.success) {
+                    setEmployees(response.data);
+                }
+            })
+            .catch((err) => console.error(err))
+            .finally(() => setLoading(false));
+    }, []);
 
     if (loading) {
         return <p>Loading...</p>
@@ -56,7 +56,7 @@ function Employee() {
                         <th className="p-2">Phòng ban</th>
                         <th className="p-2">Trạng thái</th>
                     </tr>
-                    {/* {employees.map((emp, index) => (
+                    {employees.map((emp, index) => (
                         <tr key={emp.employeeNo}>
                             <td className="p-2 border">{index + 1}</td>
                             <td className="p-2 border">{emp.employeeNo}</td>
@@ -64,7 +64,7 @@ function Employee() {
                             <td className="p-2 border">{emp.department_id || '-'}</td>
                             <td className="p-2 border">Đang làm</td>
                         </tr>
-                    ))} */}
+                    ))}
                 </table>
             </div >
         </>

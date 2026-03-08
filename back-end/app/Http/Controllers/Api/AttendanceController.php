@@ -73,6 +73,35 @@ class AttendanceController extends Controller
         ]);
     }
 
+    function viewAll(Request $request)
+    {
+        $month = $request->input('inputMonth');
+
+        // Nếu không có inputMonth từ request, dùng tháng hiện tại
+        if (!$month) {
+            $month = date('Y-m');
+        }
+
+        $show_all_in_month = Attendance::query()
+            ->join('users', 'users.employeeNo', '=', 'attendance.user_id')
+            ->select(
+                'users.name',
+                'attendance.user_id',
+                'attendance.date',
+                'attendance.check_in',
+                'attendance.check_out'
+            )
+            ->where('date', 'like', $month . '%')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Lấy dữ liệu chấm công thành công!',
+            'date' => $month,
+            'data' => $show_all_in_month
+        ]);
+    }
+
     public function test_list_user()
     {
         $result = $this->get_data->get_user();

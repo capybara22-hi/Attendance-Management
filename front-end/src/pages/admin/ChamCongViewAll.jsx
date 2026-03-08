@@ -51,6 +51,7 @@ function getDate(inputMonth) {
 function ViewAll() {
     const [view, setView] = useState(false);
     const [users, setUsers] = useState([]);
+    const [attendances, setAttendances] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const today = new Date();
@@ -76,16 +77,22 @@ function ViewAll() {
             .finally(() => setLoading(false));
     }, []);
 
-    // useEffect(() => {
-    //     fetch(`http://127.0.0.1:8000/api/attendances?date=${date}&search=${search}}`)
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             setAttendance(data.data || []);
-    //             setTotalPage(data.last_page || 1);
-    //         })
-    //         .catch((err) => console.log(err))
-    //         .finally(() => setLoading(false));
-    // });
+    useEffect(() => {
+        fetch(`http://127.0.0.1:8000/api/attendances/viewall?inputMonth=${inputMonth}`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log('Attendance data:', data);
+                if (data.success) {
+                    setAttendances(data.data || []);
+                }
+            })
+            .catch((err) => console.log(err));
+    }, [inputMonth]);
+
+
+    const getAttendance = (userId, date) => {
+        return attendances.find(att => att.user_id === userId && att.date === date);
+    };
 
     if (loading) {
         return <p>Loading...</p>
@@ -118,9 +125,9 @@ function ViewAll() {
                     <thead>
                         <tr className="bg-[#F6F6FE]">
                             {/* <th className="p-2 italic">Tháng 2/2026</th> */}
-                            <th className="p-2 border italic sticky left-0 top-0 z-30 bg-[#F6F6FE]"><input type="month" value={inputMonth} onChange={(e) => setInputMonth(e.target.value)} className="italic text-center rounded-md" /></th>
+                            <th className="p-2 min-w-[300px] border italic sticky left-0 top-0 z-30 bg-[#F6F6FE]"><input type="month" value={inputMonth} onChange={(e) => setInputMonth(e.target.value)} className="italic text-center rounded-md" /></th>
                             {array.map((element, index) => (
-                                <th key={index} className="p-1 border sticky top-0 z-20 bg-[#F6F6FE]">{element}</th>
+                                <th key={index} className="p-1 border sticky top-0 z-20 bg-[#F6F6FE] w-20 min-w-[60px]">{element}</th>
                             ))}
                         </tr>
                     </thead>
@@ -131,24 +138,25 @@ function ViewAll() {
                                     <div>{user.name}</div>
                                     <div className="italic text-sm opacity-50">{user.employeeNo}</div>
                                 </td>
-                                {/* làm cach nào để có thể hiển thị giờ ở đây? */}
+
                                 {array.map((element, index) => {
                                     const currentDate = `${inputMonth}-${String(element).padStart(2, "0")}`;
-                                    // setDate(currentDate);
+                                    const attendance = getAttendance(user.employeeNo, currentDate);
+
                                     return (
-                                        <td key={index} className="p-2 border text-sm z-10">
-                                            <p>08:20</p>
-                                            <span>-</span>
-                                            <p>17:30</p>
+                                        <td key={index} className="p-2 border text-sm z-10 w-20 min-w-[60px]">
+                                            {attendance ? (
+                                                <>
+                                                    <p className="text-green-500">{attendance.check_in ? attendance.check_in.substring(0, 5) : '--:--'}</p>
+                                                    <span>-</span>
+                                                    <p className="text-green-500">{attendance.check_out ? attendance.check_out.substring(0, 5) : '--:--'}</p>
+                                                </>
+                                            ) : (
+                                                <span className="text-gray-300">-</span>
+                                            )}
                                         </td>
                                     );
                                 })}
-
-                                {/* <td className="p-1 border text-sm">
-                                    <p>08:20</p>
-                                    <span>--</span>
-                                    <p>17:30</p>
-                                </td> */}
                             </tr>
                         ))}
                     </tbody>
