@@ -72,8 +72,8 @@ class CameraService
                     "minor" => 75,
                     // 'startTime' => $today . 'T00:00:00+07:00',
                     // 'endTime'   => $today . 'T23:59:59+07:00',
-                    "startTime" => "2026-03-02T00:00:00+07:00",
-                    "endTime" => "2026-03-02T23:59:59+07:00",
+                    "startTime" => "2026-02-28T00:00:00+07:00",
+                    "endTime" => "2026-03-08T23:59:59+07:00",
                 ]
             ];
 
@@ -129,6 +129,16 @@ class CameraService
             ->get();
 
         foreach ($attendanceData as $data) {
+            $checkInImage = UserLogEvent::where('employeeNo', $data->employeeNo)
+                ->whereDate('time', $data->date)
+                ->orderBy('time', 'asc')
+                ->value('image');
+
+            $checkOutImage = UserLogEvent::where('employeeNo', $data->employeeNo)
+                ->whereDate('time', $data->date)
+                ->orderBy('time', 'desc')
+                ->value('image');
+
             Attendance::updateOrCreate(
                 [
                     'user_id' => $data->employeeNo,
@@ -137,6 +147,8 @@ class CameraService
                 [
                     'check_in' => $data->check_in,
                     'check_out' => $data->check_out,
+                    'image_in' => $checkInImage,
+                    'image_out' => $checkOutImage,
                 ]
             );
         }

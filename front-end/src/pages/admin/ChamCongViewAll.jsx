@@ -160,10 +160,7 @@ function ViewAll() {
                             </tr>
                         ))}
                     </tbody>
-
-
                 </table>
-
             </div >
 
 

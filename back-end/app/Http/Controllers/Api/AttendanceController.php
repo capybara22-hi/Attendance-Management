@@ -39,7 +39,9 @@ class AttendanceController extends Controller
                 'users.department_id',
                 'attendance.date',
                 'attendance.check_in',
-                'attendance.check_out'
+                'attendance.check_out',
+                'attendance.image_in',
+                'attendance.image_out'
             );
 
         // Điều kiện lọc 

@@ -16,6 +16,8 @@ class Attendance extends Model
         'date',
         'check_in',
         'check_out',
+        'image_in',
+        'image_out'
     ];
 
     // Không cast để tránh timezone conversion

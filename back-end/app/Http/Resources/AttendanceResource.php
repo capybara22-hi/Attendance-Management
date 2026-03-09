@@ -22,6 +22,8 @@ class AttendanceResource extends JsonResource
             'date' => Carbon::parse($this->date)->format('d/m/Y'),
             'check_in' => $this->check_in ? Carbon::parse($this->check_in)->format('H:i:s') : null,
             'check_out' => $this->check_out ? Carbon::parse($this->check_out)->format('H:i:s') : null,
+            'image_in' => $this->image_in,
+            'image_out' => $this->image_out
         ];
     }
 }

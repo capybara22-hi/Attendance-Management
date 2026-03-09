@@ -13,20 +13,25 @@ function Main() {
     const [inputPage, setInputPage] = useState("1");
     const [search, setSearch] = useState("");
     const [view, setView] = useState(false);
-
+    const [image, setImage] = useState(false);
+    const [infor, setInfor] = useState(null);
 
     const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
     const [date, setDate] = useState("");
 
     useEffect(() => {
-        fetch(`http://127.0.0.1:8000/api/attendances?page=${page}&recordInPage=50&date=${date}&search=${search}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setAttendance(data.data || []);
-                setTotalPage(data.last_page || 1);
-            })
-            .catch((err) => console.log(err))
-            .finally(() => setLoading(false));
+        const timer = setTimeout(() => {
+            fetch(`http://127.0.0.1:8000/api/attendances?page=${page}&recordInPage=50&date=${date}&search=${search}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    setAttendance(data.data || []);
+                    setTotalPage(data.last_page || 1);
+                })
+                .catch((err) => console.log(err))
+                .finally(() => setLoading(false));
+        }, 500);
+
+        return () => clearTimeout(timer);
     }, [page, date, search]);
 
     useEffect(() => {
@@ -81,6 +86,37 @@ function Main() {
                 </div>
             </div>
 
+            {/* Xem chi tiết hình ảnh */}
+            {image === true ?
+                <>
+                    {/* Overlay background */}
+                    <div className="fixed inset-0 bg-black bg-opacity-40 z-40" onClick={() => setImage(false)}></div>
+
+                    {/* Modal */}
+                    <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-4 z-50 w-[600px] h-[500px] border rounded bg-[#F0F4FB] shadow-lg">
+                        <p className="text-right cursor-pointer" onClick={() => setImage(false)}>x</p>
+                        <p className="text-center text-[24px] font-bold">Thông tin</p>
+                        <div className="bg-white mt-4 rounded p-4">
+                            <p className="font-bold italic">Mã nhân viên: {infor.employeeNo}</p>
+                            <p className="font-bold italic">Họ và tên: {infor.name}</p>
+                        </div>
+                        <div className="flex justify-around bg-white mt-6 rounded p-4">
+                            <div>
+                                <p className="text-center font-bold">Vào</p>
+                                <img src={infor.image_in} alt="" className="border w-[200px] h-[200px]" />
+                                <p className="text-center font-bold">{infor.in}</p>
+                            </div>
+                            <div>
+                                <p className="text-center font-bold">Ra</p>
+                                <img src={infor.image_out} alt="" className="border w-[200px] h-[200px]" />
+                                <p className="text-center font-bold">{infor.out}</p>
+                            </div>
+                        </div>
+                    </div>
+                </> : ""
+            }
+
+
             {view === true ? <ViewAll></ViewAll> : (
                 <>
                     <div className="flex items-center bg-white p-4 w-[100%] rounded-md">
@@ -93,7 +129,7 @@ function Main() {
                                     setSearch(e.target.value);
                                     setPage(1);
                                 }}
-                                className="border rounded outline-0 px-3 py-2 w-[280px]"
+                                className="border rounded outline-0 px-3 py-2 w-[340px]"
                             />
                         </div>
                         <div className="ml-10">
@@ -102,7 +138,7 @@ function Main() {
                                 setDate(e.target.value);
                             }} className="border rounded px-3 py-2" />
                         </div>
-                        <div className="ml-10">
+                        {/* <div className="ml-10">
                             <label className="mr-2">Phòng</label>
                             <select name="" id="" className="border px-3 py-2 rounded outline-0">
                                 <option value="all">Tất cả</option>
@@ -111,14 +147,14 @@ function Main() {
                                 <option value="cskh">CSKH</option>
                                 <option value="hr">HR</option>
                             </select>
-                        </div>
-                        <div className="ml-10">
+                        </div> */}
+                        {/* <div className="ml-10">
                             <label className="mr-2">Loại</label>
                             <select name="" id="" className="border px-3 py-2 rounded outline-0">
                                 <option value="all">Vào</option>
                                 <option value="it">Ra</option>
                             </select>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="w-full bg-white p-4 mt-6 rounded-md">
                         <table className="w-full text-center rounded-md">
@@ -130,7 +166,7 @@ function Main() {
                                     <th className="p-2">Ngày</th>
                                     <th className="p-2">Giờ vào</th>
                                     <th className="p-2">Giờ ra</th>
-                                    <th className="p-2">Tổng giờ</th>
+                                    {/* <th className="p-2">Tổng giờ</th> */}
                                     <th className="p-2">Hình ảnh</th>
                                 </tr>
                             </thead>
@@ -144,8 +180,18 @@ function Main() {
                                         <td className="p-2 border">{emp.date}</td>
                                         <td className="p-2 border">{emp.check_in}</td>
                                         <td className="p-2 border">{emp.check_out}</td>
-                                        <td className="p-2 border">8</td>
-                                        <td className="p-2 border text-blue-500">Xem</td>
+                                        {/* <td className="p-2 border">8</td> */}
+                                        <td className="p-2 border text-blue-500 cursor-pointer" onClick={() => {
+                                            setImage(true);
+                                            setInfor({
+                                                name: emp.name,
+                                                employeeNo: emp.employeeNo,
+                                                in: emp.check_in,
+                                                out: emp.check_out,
+                                                image_in: emp.image_in,
+                                                image_out: emp.image_out
+                                            })
+                                        }}>Xem</td>
                                     </tr>
                                 )
                             })}
