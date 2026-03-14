@@ -21,7 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // API quản lý nhân viên
-Route::apiResource('users', UserController::class);
+// Route::apiResource('users', UserController::class);
+Route::get('users', [UserController::class, 'index']);
+Route::put('users/{employeeNo}', [UserController::class, 'update']);
+
 
 // API quản lý chấm công
 // Route::apiResource('attendances', AttendanceController::class);

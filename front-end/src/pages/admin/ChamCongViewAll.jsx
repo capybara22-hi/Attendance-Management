@@ -98,7 +98,6 @@ function ViewAll() {
         return <p>Loading...</p>
     }
 
-
     return (
         <>
             {/* <div className="flex justify-between">
@@ -132,33 +131,44 @@ function ViewAll() {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map((user) => (
-                            <tr key={user.employeeNo} className="">
-                                <td className="p-2 border text-left sticky left-0 z-10 bg-white">
-                                    <div>{user.name}</div>
-                                    <div className="italic text-sm opacity-50">{user.employeeNo}</div>
-                                </td>
+                        {users.map((user) => {
+                            const userAttendanceCount = array.filter(day => {
+                                const currentDate = `${inputMonth}-${String(day).padStart(2, "0")}`;
+                                const attendance = getAttendance(user.employeeNo, currentDate);
+                                return attendance && attendance.check_in;
+                            }).length;
 
-                                {array.map((element, index) => {
-                                    const currentDate = `${inputMonth}-${String(element).padStart(2, "0")}`;
-                                    const attendance = getAttendance(user.employeeNo, currentDate);
+                            return (
+                                <tr key={user.employeeNo} className="">
+                                    <td className="p-2 border text-left sticky left-0 z-10 bg-white">
+                                        <div className="flex justify-between cursor-pointer">
+                                            <div className="font-semibold">{user.name}</div>
+                                            <div className="text-sm italic mt-2">{userAttendanceCount}</div>
+                                        </div>
+                                        <div className="italic text-sm opacity-50">{user.employeeNo}</div>
+                                    </td>
 
-                                    return (
-                                        <td key={index} className="p-2 border text-sm z-10 w-20 min-w-[60px]">
-                                            {attendance ? (
-                                                <>
-                                                    <p className="text-green-500">{attendance.check_in ? attendance.check_in.substring(0, 5) : '--:--'}</p>
-                                                    <span>-</span>
-                                                    <p className="text-green-500">{attendance.check_out ? attendance.check_out.substring(0, 5) : '--:--'}</p>
-                                                </>
-                                            ) : (
-                                                <span className="text-gray-300">-</span>
-                                            )}
-                                        </td>
-                                    );
-                                })}
-                            </tr>
-                        ))}
+                                    {array.map((element, index) => {
+                                        const currentDate = `${inputMonth}-${String(element).padStart(2, "0")}`;
+                                        const attendance = getAttendance(user.employeeNo, currentDate);
+
+                                        return (
+                                            <td key={index} className="p-2 border text-sm z-10 w-20 min-w-[60px]">
+                                                {attendance ? (
+                                                    <>
+                                                        <p className="text-green-500">{attendance.check_in ? attendance.check_in.substring(0, 5) : '--:--'}</p>
+                                                        <span>-</span>
+                                                        <p className="text-green-500">{attendance.check_out ? attendance.check_out.substring(0, 5) : '--:--'}</p>
+                                                    </>
+                                                ) : (
+                                                    <span className="text-gray-300">-</span>
+                                                )}
+                                            </td>
+                                        );
+                                    })}
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div >

@@ -23,6 +23,12 @@ class User extends Authenticatable
         'employeeNo',
         'name',
         'department_id',
+        'gender',
+        'email',
+        'phone_number',
+        'bank_name',
+        'bank_account_number',
+        'status',
         'image'
     ];
 

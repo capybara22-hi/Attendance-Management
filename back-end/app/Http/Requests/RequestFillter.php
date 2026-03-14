@@ -24,6 +24,7 @@ class RequestFillter extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'nullable',
             'date' => 'nullable',
             'department_id' => 'nullable|string|max:100',
             'employeeNo' => 'nullable|string|max:50|exists:users,employeeNo',

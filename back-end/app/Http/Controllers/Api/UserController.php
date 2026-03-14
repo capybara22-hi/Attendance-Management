@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RequestFillter;
+use App\Http\Requests\RequestUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,13 +15,22 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(RequestFillter $request)
     {
-        $users = User::with('attendances')->get();
+        $users = User::query();
+
+        if ($request->search) {
+            $users->where(function ($query) use ($request) {
+                $query->where('users.name', 'like', '%' . $request->search . '%')
+                    ->orWhere('users.employeeNo', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $data = $users->get();
 
         return response()->json([
             'success' => true,
-            'data' => $users
+            'data' => $data
         ]);
     }
 
@@ -79,7 +90,7 @@ class UserController extends Controller
      * @param  string  $employeeNo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $employeeNo)
+    public function update(RequestUser $request, $employeeNo)
     {
         $user = User::where('employeeNo', $employeeNo)->first();
 
@@ -90,17 +101,10 @@ class UserController extends Controller
             ], 404);
         }
 
-        $validated = $request->validate([
-            'name' => 'sometimes|required|string|max:255',
-            'department_id' => 'nullable|integer',
-            'image' => 'nullable|string'
-        ]);
-
-        $user->update($validated);
+        $user->update($request->all());
 
         return response()->json([
-            'success' => true,
-            'message' => 'Cập nhật nhân viên thành công!',
+            'message' => "Cập nhật thành công!",
             'data' => $user
         ]);
     }
