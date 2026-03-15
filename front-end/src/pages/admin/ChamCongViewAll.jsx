@@ -156,9 +156,9 @@ function ViewAll() {
                                             <td key={index} className="p-2 border text-sm z-10 w-20 min-w-[60px]">
                                                 {attendance ? (
                                                     <>
-                                                        <p className="text-green-500">{attendance.check_in ? attendance.check_in.substring(0, 5) : '--:--'}</p>
+                                                        <p className="text-green-600">{attendance.check_in ? attendance.check_in.substring(0, 5) : '--:--'}</p>
                                                         <span>-</span>
-                                                        <p className="text-green-500">{attendance.check_out ? attendance.check_out.substring(0, 5) : '--:--'}</p>
+                                                        <p className="text-green-600">{attendance.check_out ? attendance.check_out.substring(0, 5) : '--:--'}</p>
                                                     </>
                                                 ) : (
                                                     <span className="text-gray-300">-</span>

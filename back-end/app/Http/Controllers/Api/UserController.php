@@ -26,6 +26,15 @@ class UserController extends Controller
             });
         }
 
+        // Nếu không kiểm tra $request->status thì giả sử k có request nào, status sẽ có gtri là null, và null != 0 nên code vẫn có thể chạy
+        if ($request->status && $request->status != 0) {
+            $users->where('status', $request->status);
+        }
+
+        if ($request->department && $request->department != 0) {
+            $users->where('department_id', $request->department);
+        }
+
         $data = $users->get();
 
         return response()->json([
@@ -101,12 +110,20 @@ class UserController extends Controller
             ], 404);
         }
 
-        $user->update($request->all());
+        try {
+            $user->update($request->validated());
 
-        return response()->json([
-            'message' => "Cập nhật thành công!",
-            'data' => $user
-        ]);
+            return response()->json([
+                'success' => true,
+                'message' => "Cập nhật thành công!",
+                'data' => $user
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Đã xảy ra lỗi khi cập nhật: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
