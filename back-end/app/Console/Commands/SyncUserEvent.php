@@ -29,6 +29,8 @@ class SyncUserEvent extends Command
      */
     public function handle(CameraService $cameraService)
     {
+
+
         $users = $cameraService->get_user();
 
         $data = [];

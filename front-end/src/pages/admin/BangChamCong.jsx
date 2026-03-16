@@ -179,7 +179,7 @@ function Main() {
                                         <td className="p-2 border">{emp.name || '-'}</td>
                                         <td className="p-2 border">{emp.date}</td>
                                         <td className="p-2 border">{emp.check_in}</td>
-                                        <td className="p-2 border">{emp.check_out}</td>
+                                        <td className="p-2 border">{emp.check_out != emp.check_in ? emp.check_out : ""}</td>
                                         {/* <td className="p-2 border">8</td> */}
                                         <td className="p-2 border text-blue-500 cursor-pointer" onClick={() => {
                                             setImage(true);

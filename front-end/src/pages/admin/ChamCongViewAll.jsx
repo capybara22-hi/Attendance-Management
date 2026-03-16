@@ -158,7 +158,7 @@ function ViewAll() {
                                                     <>
                                                         <p className="text-green-600">{attendance.check_in ? attendance.check_in.substring(0, 5) : '--:--'}</p>
                                                         <span>-</span>
-                                                        <p className="text-green-600">{attendance.check_out ? attendance.check_out.substring(0, 5) : '--:--'}</p>
+                                                        <p className={`${attendance.check_in != attendance.check_out ? "text-green-600" : "text-red-500"} h-[20px]`}>{attendance.check_in != attendance.check_out ? attendance.check_out.substring(0, 5) : ''}</p>
                                                     </>
                                                 ) : (
                                                     <span className="text-gray-300">-</span>

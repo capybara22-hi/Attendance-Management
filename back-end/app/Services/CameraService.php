@@ -72,8 +72,8 @@ class CameraService
                     "minor" => 75,
                     // 'startTime' => $today . 'T00:00:00+07:00',
                     // 'endTime'   => $today . 'T23:59:59+07:00',
-                    "startTime" => "2026-02-28T00:00:00+07:00",
-                    "endTime" => "2026-03-08T23:59:59+07:00",
+                    "startTime" => "2026-03-07T00:00:00+07:00",
+                    "endTime" => "2026-03-15T23:59:59+07:00",
                 ]
             ];
 
@@ -116,6 +116,9 @@ class CameraService
         // Lấy danh sách employeeNo có tồn tại trong bảng users
         $existingEmployeeNos = User::pluck('employeeNo')->toArray();
 
+        // ??
+        $lastProcessedAt = Attendance::max('date');
+
         $attendanceData = UserLogEvent::selectRaw('
             employeeNo,
             name,
@@ -124,6 +127,7 @@ class CameraService
             MAX(time) as check_out
         ')
             ->whereIn('employeeNo', $existingEmployeeNos)
+            ->whereDate('time', '>', $lastProcessedAt)
             ->groupBy('employeeNo', DB::raw('DATE(time)'), 'name')
             ->orderBy('date', 'desc')
             ->get();

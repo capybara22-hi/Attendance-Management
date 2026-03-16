@@ -32,7 +32,7 @@ function Employee() {
         }, 500);
 
         return () => clearTimeout(timer);
-    }, [search, status, department]);
+    }, [search, status, department, confirmDel]);
 
     useEffect(() => {
         if (confirmDel) {
@@ -96,6 +96,18 @@ function Employee() {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    const deleteUser = async function () {
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/api/users/${infor.employeeNo}`, { method: "DELETE" });
+            const data = await response.json();
+
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        };
+
     }
 
     if (loading) {
@@ -183,7 +195,8 @@ function Employee() {
                                         phone: emp.phone_number,
                                         bank: emp.bank_name,
                                         bank_account: emp.bank_account_number,
-                                        status: emp.status
+                                        status: emp.status,
+                                        image: emp.image
                                     })
                                     setIsEdit(false);
                                 }}>Xem</td>
@@ -203,7 +216,7 @@ function Employee() {
                     <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-8 z-50 w-[600px] h-[680px] border rounded bg-white shadow-lg">
                         <p className="text-right cursor-pointer" onClick={() => setImage(false)}>x</p>
                         <div className="flex items-center">
-                            <img src="" alt="" className="border rounded-full w-16 h-16" />
+                            <img src={infor.image} alt="" className="border rounded-full w-16 h-16" />
                             <p className="ml-4 text-[24px]">{infor.name}</p>
 
                             <img src={edit} alt="" onClick={() => setIsEdit(!isEdit)} className="w-[18px] h-[18px] mx-1 mt-1" />
@@ -323,6 +336,7 @@ function Employee() {
                                     setImage(false);
                                     setDel(false);
                                     setConfirmDel(true);
+                                    deleteUser();
                                 }}>Xác nhận</button>
                             </div>
                         </div>
