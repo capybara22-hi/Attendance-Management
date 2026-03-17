@@ -60,7 +60,17 @@ class CameraService
         $limit = 30;
         $list_users_event = [];
 
-        $today = now('Asia/Ho_Chi_Minh')->format('Y-m-d');
+        $lastTime = DB::table('log_user_event')->max('time');
+
+        if (!$lastTime) {
+            $from = Carbon::now('Asia/Ho_Chi_Minh')->subDay();
+        } else {
+            // +1 giây để tránh trùng dữ liệu
+            $from = Carbon::parse($lastTime)->addSecond();
+        }
+
+        // Thời điểm hiện tại
+        $to = Carbon::now('Asia/Ho_Chi_Minh');
 
         do {
             $body = [
@@ -70,10 +80,10 @@ class CameraService
                     "maxResults" => $limit,
                     "major" => 5,
                     "minor" => 75,
-                    // 'startTime' => $today . 'T00:00:00+07:00',
-                    // 'endTime'   => $today . 'T23:59:59+07:00',
-                    "startTime" => "2026-03-07T00:00:00+07:00",
-                    "endTime" => "2026-03-15T23:59:59+07:00",
+                    // "startTime" => "2026-03-15T00:00:00+07:00",
+                    // "endTime" => "2026-03-16T23:59:59+07:00",
+                    "startTime" => $from->format('Y-m-d\TH:i:sP'),
+                    "endTime"   => $to->format('Y-m-d\TH:i:sP'),
                 ]
             ];
 
@@ -93,30 +103,30 @@ class CameraService
             $start += $limit;
         } while (count($users) === $limit);
 
-        // return view('welcome', compact('users'));
-        return $list_users_event;
+        $data = [];
+
+        foreach ($list_users_event as $user) {
+            $data[] = [
+                'employeeNo' => $user['employeeNoString'],
+                'name' => $user['name'],
+                'image' => $user['pictureURL'] ?? null,
+                'time' => $user['time'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        if (!empty($data)) {
+            DB::table('log_user_event')->insertOrIgnore($data);
+        }
     }
 
-    public function processAttendance()
-    {
-        $get_data = Storage::get("file_test/event.json");
-
-        $employee = json_decode($get_data, true);
-
-        // Lấy dữ liệu chấm công từ API thứ 2
-        // $employee_data = $this->get_user();
-
-        // $employee = end($employee_data);
-        // dd($employee_data);
-    }
-
-    // Viết hàm thực hiện lấy dữ liệu chấm công từ tháng 1 cho đến hiện tại
     public function test_attendance()
     {
-        // Lấy danh sách employeeNo có tồn tại trong bảng users
+        $this->get_user();
+
         $existingEmployeeNos = User::pluck('employeeNo')->toArray();
 
-        // ??
         $lastProcessedAt = Attendance::max('date');
 
         $attendanceData = UserLogEvent::selectRaw('
@@ -124,25 +134,17 @@ class CameraService
             name,
             DATE(time) as date,
             MIN(time) as check_in,
-            MAX(time) as check_out
+            MAX(time) as check_out,
+            SUBSTRING_INDEX(GROUP_CONCAT(image ORDER BY time ASC), ",", 1) as check_in_image,
+            SUBSTRING_INDEX(GROUP_CONCAT(image ORDER BY time DESC), ",", 1) as check_out_image
         ')
             ->whereIn('employeeNo', $existingEmployeeNos)
-            ->whereDate('time', '>', $lastProcessedAt)
+            ->whereDate('time', '>=', $lastProcessedAt)
             ->groupBy('employeeNo', DB::raw('DATE(time)'), 'name')
             ->orderBy('date', 'desc')
             ->get();
 
         foreach ($attendanceData as $data) {
-            $checkInImage = UserLogEvent::where('employeeNo', $data->employeeNo)
-                ->whereDate('time', $data->date)
-                ->orderBy('time', 'asc')
-                ->value('image');
-
-            $checkOutImage = UserLogEvent::where('employeeNo', $data->employeeNo)
-                ->whereDate('time', $data->date)
-                ->orderBy('time', 'desc')
-                ->value('image');
-
             Attendance::updateOrCreate(
                 [
                     'user_id' => $data->employeeNo,
@@ -151,10 +153,35 @@ class CameraService
                 [
                     'check_in' => $data->check_in,
                     'check_out' => $data->check_out,
-                    'image_in' => $checkInImage,
-                    'image_out' => $checkOutImage,
+                    'image_in' => $data->check_in_image,
+                    'image_out' => $data->check_out_image
                 ]
             );
         }
+
+        // foreach ($attendanceData as $data) {
+        //     $checkInImage = UserLogEvent::where('employeeNo', $data->employeeNo)
+        //         ->whereDate('time', $data->date)
+        //         ->orderBy('time', 'asc')
+        //         ->value('image');
+
+        //     $checkOutImage = UserLogEvent::where('employeeNo', $data->employeeNo)
+        //         ->whereDate('time', $data->date)
+        //         ->orderBy('time', 'desc')
+        //         ->value('image');
+
+        //     Attendance::updateOrCreate(
+        //         [
+        //             'user_id' => $data->employeeNo,
+        //             'date' => $data->date,
+        //         ],
+        //         [
+        //             'check_in' => $data->check_in,
+        //             'check_out' => $data->check_out,
+        //             'image_in' => $checkInImage,
+        //             'image_out' => $checkOutImage,
+        //         ]
+        //     );
+        // }
     }
 }

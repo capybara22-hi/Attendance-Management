@@ -9,7 +9,7 @@ function Sidebar() {
         <>
             <div className="bg-white w-[256px] h-[100vh] min-h-screen">
                 <ul className="p-3">
-                    <NavLink to={"/viewall"}>
+                    <NavLink to={"/bangchamcong"}>
                         <li className="flex items-center p-3 hover:bg-[#F6F9FF] hover:text-[#4d4def] text-[#012970] font-semibold rounded-md"><img src={dashboard} alt="" className="mr-2 w-[20px] h-[20px]" />Tổng quan</li>
                     </NavLink>
                     <NavLink to="/bangchamcong">

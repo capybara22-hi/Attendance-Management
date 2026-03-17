@@ -108,8 +108,8 @@ function Main() {
                             </div>
                             <div>
                                 <p className="text-center font-bold">Ra</p>
-                                <img src={infor.image_out} alt="" className="border w-[200px] h-[200px]" />
-                                <p className="text-center font-bold">{infor.out}</p>
+                                <img src={infor.in === infor.out ? "" : infor.image_out} alt="" className="border w-[200px] h-[200px]" />
+                                <p className="text-center font-bold">{infor.in === infor.out ? "" : infor.out}</p>
                             </div>
                         </div>
                     </div>
@@ -138,23 +138,6 @@ function Main() {
                                 setDate(e.target.value);
                             }} className="border rounded px-3 py-2" />
                         </div>
-                        {/* <div className="ml-10">
-                            <label className="mr-2">Phòng</label>
-                            <select name="" id="" className="border px-3 py-2 rounded outline-0">
-                                <option value="all">Tất cả</option>
-                                <option value="it">IT</option>
-                                <option value="sale">Sales</option>
-                                <option value="cskh">CSKH</option>
-                                <option value="hr">HR</option>
-                            </select>
-                        </div> */}
-                        {/* <div className="ml-10">
-                            <label className="mr-2">Loại</label>
-                            <select name="" id="" className="border px-3 py-2 rounded outline-0">
-                                <option value="all">Vào</option>
-                                <option value="it">Ra</option>
-                            </select>
-                        </div> */}
                     </div>
                     <div className="w-full bg-white p-4 mt-6 rounded-md">
                         <table className="w-full text-center rounded-md">
@@ -180,7 +163,6 @@ function Main() {
                                         <td className="p-2 border">{emp.date}</td>
                                         <td className="p-2 border">{emp.check_in}</td>
                                         <td className="p-2 border">{emp.check_out != emp.check_in ? emp.check_out : ""}</td>
-                                        {/* <td className="p-2 border">8</td> */}
                                         <td className="p-2 border text-blue-500 cursor-pointer" onClick={() => {
                                             setImage(true);
                                             setInfor({

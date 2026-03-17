@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Services\CameraService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -31,6 +32,20 @@ class AttendanceController extends Controller
      */
     public function index(RequestFillter $request)
     {
+        // Giới hạn chỉ đồng bộ mỗi 5 phút một lần
+        if (!Cache::has('attendance_sync_lock')) {
+            try {
+                $this->get_data->test_attendance();
+                // Đặt cache trong 5 phút (300 giây)
+                Cache::put('attendance_sync_lock', true, 300);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Lỗi đồng bộ dữ liệu: ' . $e->getMessage(),
+                ], 500);
+            }
+        }
+
         $list_attendance = Attendance::query()
             ->join('users', 'users.employeeNo', '=', 'attendance.user_id')
             ->select(
@@ -62,7 +77,7 @@ class AttendanceController extends Controller
 
         $recordInPage = $request->recordInPage ?? 20;
 
-        $data = $list_attendance->orderBy('date', 'desc')->paginate($recordInPage);
+        $data = $list_attendance->orderBy('date', 'desc')->orderBy('check_in', 'desc')->paginate($recordInPage);
 
         return response()->json([
             'success' => true,
@@ -104,14 +119,6 @@ class AttendanceController extends Controller
         ]);
     }
 
-    public function test_list_user()
-    {
-        $result = $this->get_data->get_user();
-
-        $user_event = end($result);
-        dd($user_event);
-        return response()->json($result);
-    }
 
     /**
      * Process attendance check-in/check-out from camera
