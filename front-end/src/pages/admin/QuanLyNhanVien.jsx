@@ -196,7 +196,6 @@ function Employee() {
                                         bank: emp.bank_name,
                                         bank_account: emp.bank_account_number,
                                         status: emp.status,
-                                        image: emp.image
                                     })
                                     setIsEdit(false);
                                 }}>Xem</td>
