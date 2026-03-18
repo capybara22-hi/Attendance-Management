@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\CssSelector\Node\FunctionNode;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
@@ -32,20 +33,11 @@ class AttendanceController extends Controller
      */
     public function index(RequestFillter $request)
     {
-        // Giới hạn chỉ đồng bộ mỗi 5 phút một lần
-        if (!Cache::has('attendance_sync_lock')) {
-            try {
-                $this->get_data->test_attendance();
-                // Đặt cache trong 5 phút (300 giây)
-                Cache::put('attendance_sync_lock', true, 300);
-            } catch (\Exception $e) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Lỗi đồng bộ dữ liệu: ' . $e->getMessage(),
-                ], 500);
-            }
-        }
-
+        // try {
+        //     $this->get_data->test_attendance();
+        // } catch (\Exception $e) {
+        //     Log::warning('Lỗi đồng bộ dữ liệu: ' . $e->getMessage());
+        // }
         $list_attendance = Attendance::query()
             ->join('users', 'users.employeeNo', '=', 'attendance.user_id')
             ->select(
