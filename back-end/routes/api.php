@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AttendanceController;
+use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,15 +21,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// API đăng ký, đăng nhập
+Route::post('/dangky', [LoginController::class, 'register']);
+
 // API quản lý nhân viên
-// Route::apiResource('users', UserController::class);
 Route::get('users', [UserController::class, 'index']);
 Route::put('users/{employeeNo}', [UserController::class, 'update']);
 Route::delete('users/{employeeNo}', [UserController::class, 'destroy']);
-
-
-// API quản lý chấm công
-// Route::apiResource('attendances', AttendanceController::class);
 
 // API xử lý chấm công từ camera
 Route::get('attendances', [AttendanceController::class, 'index']);

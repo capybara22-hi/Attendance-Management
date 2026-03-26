@@ -3,6 +3,7 @@ import prevIcon from "../../assets/logo/prev.svg";
 import nextIcon from "../../assets/logo/next.svg";
 import row from "@/assets/logo/row.svg";
 import all from "@/assets/logo/all.svg";
+import x from "@/assets/logo/x.svg";
 import ViewAll from "./ChamCongViewAll";
 
 function Main() {
@@ -12,6 +13,7 @@ function Main() {
     const [totalPage, setTotalPage] = useState(1);
     const [inputPage, setInputPage] = useState("1");
     const [search, setSearch] = useState("");
+
     const [view, setView] = useState(false);
     const [image, setImage] = useState(false);
     const [infor, setInfor] = useState(null);
@@ -94,7 +96,9 @@ function Main() {
 
                     {/* Modal */}
                     <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-4 z-50 w-[600px] h-[500px] border rounded bg-[#F0F4FB] shadow-lg">
-                        <p className="text-right cursor-pointer" onClick={() => setImage(false)}>x</p>
+                        <span className="flex justify-end">
+                            <img src={x} alt="" className="float-right cursor-pointer" onClick={() => setImage(false)} />
+                        </span>
                         <p className="text-center text-[24px] font-bold">Thông tin</p>
                         <div className="bg-white mt-4 rounded p-4">
                             <p className="font-bold italic">Mã nhân viên: {infor.employeeNo}</p>
@@ -120,7 +124,7 @@ function Main() {
             {view === true ? <ViewAll></ViewAll> : (
                 <>
                     <div className="flex items-center bg-white p-4 w-[100%] rounded-md">
-                        <div>
+                        <div className="flex border rounded">
                             <input
                                 type="text"
                                 placeholder="Tìm kiếm"
@@ -129,7 +133,7 @@ function Main() {
                                     setSearch(e.target.value);
                                     setPage(1);
                                 }}
-                                className="border rounded outline-0 px-3 py-2 w-[340px]"
+                                className="outline-none px-3 py-2 w-[340px]"
                             />
                         </div>
                         <div className="ml-10">

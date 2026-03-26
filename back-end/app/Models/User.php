@@ -29,7 +29,10 @@ class User extends Authenticatable
         'bank_name',
         'bank_account_number',
         'status',
-        'image'
+        'image',
+        'name_login',
+        'password',
+        'role'
     ];
 
     /**

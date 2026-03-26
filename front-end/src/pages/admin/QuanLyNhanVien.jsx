@@ -213,7 +213,10 @@ function Employee() {
                         setImage(false);
                     }}></div>
                     <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-8 z-50 w-[600px] h-[680px] border rounded bg-white shadow-lg">
-                        <p className="text-right cursor-pointer" onClick={() => setImage(false)}>x</p>
+                        {/* <p className="text-right cursor-pointer" onClick={() => setImage(false)}>x</p> */}
+                        <span className="flex justify-end">
+                            <img src={x} alt="" className="float-right cursor-pointer" onClick={() => setImage(false)} />
+                        </span>
                         <div className="flex items-center">
                             <img src={infor.image} alt="" className="border rounded-full w-16 h-16" />
                             <p className="ml-4 text-[24px]">{infor.name}</p>

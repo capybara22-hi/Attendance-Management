@@ -33,11 +33,11 @@ class AttendanceController extends Controller
      */
     public function index(RequestFillter $request)
     {
-        // try {
-        //     $this->get_data->test_attendance();
-        // } catch (\Exception $e) {
-        //     Log::warning('Lỗi đồng bộ dữ liệu: ' . $e->getMessage());
-        // }
+        try {
+            $this->get_data->test_attendance();
+        } catch (\Exception $e) {
+            Log::warning('Lỗi đồng bộ dữ liệu: ' . $e->getMessage());
+        }
         $list_attendance = Attendance::query()
             ->join('users', 'users.employeeNo', '=', 'attendance.user_id')
             ->select(

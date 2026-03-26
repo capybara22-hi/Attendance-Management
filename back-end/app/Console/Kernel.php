@@ -19,7 +19,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('camera:sync-users')->daily();
         $schedule->call(function () {
             Log::info('Cron đang chạy...');
-
             app(\App\Services\CameraService::class)->test_attendance();
         })->everyMinute();
     }
