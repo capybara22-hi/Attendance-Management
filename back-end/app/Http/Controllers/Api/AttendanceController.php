@@ -33,11 +33,11 @@ class AttendanceController extends Controller
      */
     public function index(RequestFillter $request)
     {
-        try {
-            $this->get_data->test_attendance();
-        } catch (\Exception $e) {
-            Log::warning('Lỗi đồng bộ dữ liệu: ' . $e->getMessage());
-        }
+        // try {
+        //     $this->get_data->test_attendance();
+        // } catch (\Exception $e) {
+        //     Log::warning('Lỗi đồng bộ dữ liệu: ' . $e->getMessage());
+        // }
         $list_attendance = Attendance::query()
             ->join('users', 'users.employeeNo', '=', 'attendance.user_id')
             ->select(
@@ -71,6 +71,8 @@ class AttendanceController extends Controller
 
         $data = $list_attendance->orderBy('date', 'desc')->orderBy('check_in', 'desc')->paginate($recordInPage);
 
+        $list_attendance->whereDate('date', '2026-03-26'); // Đếm số nhân viên đã chấm công trong ngày
+
         return response()->json([
             'success' => true,
             'message' => 'Lấy dữ liệu thành công!',
@@ -79,6 +81,7 @@ class AttendanceController extends Controller
             'last_page' => $data->lastPage(),
             'per_page' => $data->perPage(),
             'total' => $data->total(),
+            'checked_in' => $list_attendance->count()
         ]);
     }
 

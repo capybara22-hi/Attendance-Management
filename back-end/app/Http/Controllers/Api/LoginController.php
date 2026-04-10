@@ -16,18 +16,21 @@ class LoginController extends Controller
 
         if (!$user) {
             return response()->json([
+                'success' => false,
                 'message' => "Do not find employeeNo!"
-            ]);
+            ], 404);
         }
 
         if (!Hash::check($request->password, $user->password)) {
             return response()->json([
-                'message' => "Password is not true!"
-            ]);
+                'success' => false,
+                'message' => "Mật khẩu không chính xác!"
+            ], 401);
         }
 
         return response()->json([
             'success' => true,
+            'message' => 'Đăng nhập thành công',
             'data' => $user
         ]);
     }
@@ -38,12 +41,14 @@ class LoginController extends Controller
 
         if (!$user) {
             return response()->json([
+                'success' => false,
                 'message' => "Do not find employeeNo!"
-            ]);
+            ], 404);
         }
 
         if ($user->password) {
             return response()->json([
+                'success' => false,
                 'message' => 'Tài khoản đã được đăng ký!'
             ], 400);
         }
@@ -53,6 +58,7 @@ class LoginController extends Controller
         ]);
 
         return response()->json([
+            'success' => true,
             'message' => 'Đăng ký thành công',
             'user' => $user
         ], 201);

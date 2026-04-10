@@ -7,6 +7,7 @@ use App\Http\Requests\RequestFillter;
 use App\Http\Requests\RequestUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -37,9 +38,15 @@ class UserController extends Controller
 
         $data = $users->get();
 
+        $employee_in_department = User::select('department_id', DB::raw('count(*) as total'))
+            ->groupBy('department_id')
+            ->get();
+
         return response()->json([
             'success' => true,
-            'data' => $data
+            'data' => $data,
+            'totalUser' => $users->count(),
+            'user_in_department' => $employee_in_department
         ]);
     }
 

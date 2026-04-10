@@ -1,7 +1,7 @@
 import user from "@/assets/logo/user.svg";
 import lock from "@/assets/logo/lock.svg";
-import google from "@/assets/logo/google.svg";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function DangKy() {
     const [code, setCode] = useState('');
@@ -11,6 +11,7 @@ function DangKy() {
     const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
     const sendData = async () => {
         if (!code || !pass || !confirmPass) {
@@ -42,18 +43,18 @@ function DangKy() {
             })
 
             const data = await res.json();
-            if (res.ok) {
-                setMessage('Đăng ký thành công!');
+            if (res.ok && data.success) {
+                setMessage(data.message || 'Đăng ký thành công!');
                 setCode('');
                 setPass('');
                 setConfirmPass('');
-                setTimeout(() => window.location.href = '/dang-nhap', 2000);
+                setTimeout(() => navigate('/dangnhap'), 1200);
             } else {
                 setMessage(data.message || 'Đăng ký thất bại!');
             }
             console.log(data);
         } catch (error) {
-            setMessage('Có lỗi xảy ra. Vui lòng thử lại!');
+            setMessage('Mã nhân viên không tồn tại!');
             console.error(error);
         } finally {
             setLoading(false);
@@ -188,7 +189,7 @@ function DangKy() {
                                 {/* Login Link */}
                                 <div className="text-center pt-4">
                                     <span className="text-gray-600 text-sm">Đã có tài khoản? </span>
-                                    <a href="/dangnhap" className="text-blue-600 font-semibold hover:text-blue-800 transition-colors text-sm">Đăng nhập</a>
+                                    <Link to="/dangnhap" className="text-blue-600 font-semibold hover:text-blue-800 transition-colors text-sm">Đăng nhập</Link>
                                 </div>
                             </form>
                         </div>

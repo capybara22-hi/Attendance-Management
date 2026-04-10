@@ -1,13 +1,67 @@
 import user from "@/assets/logo/user.svg";
 import lock from "@/assets/logo/lock.svg";
-import google from "@/assets/logo/google.svg";
-import DangKy from "./DangKy";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 
 function DangNhap() {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
+    const [employeeNo, setEmployeeNo] = useState("");
+    const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const existingUser = localStorage.getItem("auth_user") || sessionStorage.getItem("auth_user");
+        if (existingUser) {
+            navigate("/bangchamcong");
+        }
+    }, [navigate]);
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        setMessage("");
+
+        if (!employeeNo || !password) {
+            setMessage("Vui lòng nhập đầy đủ mã nhân viên và mật khẩu.");
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+            const res = await fetch("http://127.0.0.1:8000/api/dangnhap", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ employeeNo, password }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok || !data.success) {
+                setMessage(data.message || "Đăng nhập thất bại.");
+                return;
+            }
+
+            if (rememberMe) {
+                localStorage.setItem("auth_user", JSON.stringify(data.data));
+                sessionStorage.removeItem("auth_user");
+            } else {
+                sessionStorage.setItem("auth_user", JSON.stringify(data.data));
+                localStorage.removeItem("auth_user");
+            }
+
+            navigate("/bangchamcong");
+        } catch (error) {
+            setMessage("Tài khoản hoặc mật khẩu không đúng!");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <>
@@ -40,7 +94,12 @@ function DangNhap() {
                             </div>
 
                             {/* Form */}
-                            <form className="space-y-5">
+                            <form className="space-y-5" onSubmit={handleLogin}>
+                                {message && (
+                                    <div className="rounded-lg border border-red-300 bg-red-100 p-3 text-center text-sm font-medium text-red-800">
+                                        {message}
+                                    </div>
+                                )}
                                 {/* Employee ID Input */}
                                 <div className="relative">
                                     <label className="block text-sm font-medium text-gray-700 mb-2">Mã nhân viên</label>
@@ -48,6 +107,8 @@ function DangNhap() {
                                         <img src={user} alt="user" className="w-5 h-5 ml-4 opacity-60" />
                                         <input
                                             type="text"
+                                            value={employeeNo}
+                                            onChange={(e) => setEmployeeNo(e.target.value)}
                                             className="outline-none w-full bg-transparent px-4 py-3 text-gray-900 placeholder-gray-500"
                                             placeholder="Nhập mã nhân viên"
                                         />
@@ -61,6 +122,8 @@ function DangNhap() {
                                         <img src={lock} alt="lock" className="w-5 h-5 ml-4 opacity-60" />
                                         <input
                                             type={isPasswordVisible ? "text" : "password"}
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
                                             className="outline-none w-full bg-transparent px-4 py-3 text-gray-900 placeholder-gray-500"
                                             placeholder="Nhập mật khẩu"
                                         />
@@ -90,16 +153,17 @@ function DangNhap() {
 
                                 {/* Login Button */}
                                 <button
-                                    type="button"
-                                    className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg mt-8"
+                                    type="submit"
+                                    disabled={loading}
+                                    className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg mt-8"
                                 >
-                                    Đăng nhập
+                                    {loading ? "Đang đăng nhập..." : "Đăng nhập"}
                                 </button>
 
                                 {/* Sign Up Link */}
                                 <div className="text-center pt-4">
                                     <span className="text-gray-600 text-sm">Chưa có tài khoản? </span>
-                                    <a href="/dangky" className="text-blue-600 font-semibold hover:text-blue-800 transition-colors text-sm">Đăng ký</a>
+                                    <Link to="/dangky" className="text-blue-600 font-semibold hover:text-blue-800 transition-colors text-sm">Đăng ký</Link>
                                 </div>
                             </form>
 
