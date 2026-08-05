@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AttendanceController;
+use App\Http\Controllers\Api\LeaveRequestController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/dangnhap', [LoginController::class, 'login']);
 Route::get('/dangky', [LoginController::class, 'register']);
+
+Route::get('testdata', [LeaveRequestController::class, 'list_leave_request']);
 
 
 // Route::get('/', [AttendanceController::class, 'processAttendance']);

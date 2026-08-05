@@ -9,7 +9,10 @@ class LeaveRequest extends Model
 {
     use HasFactory;
 
+    protected $table = 'leave_requests';
+
     protected $fillable = [
+        'id',
         'employeeNo',
         'start_date',
         'end_date',
@@ -17,6 +20,8 @@ class LeaveRequest extends Model
         'reason',
         'approved_by',
         'approval_date',
-        'status'
+        'status',
+        'created_at',
+        'updated_at'
     ];
 }

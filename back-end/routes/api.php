@@ -37,6 +37,10 @@ Route::get('attendances/viewall', [AttendanceController::class, 'viewAll']);
 Route::get('attendances/{id}', [AttendanceController::class, 'show']);
 Route::post('attendance/check', [AttendanceController::class, 'processAttendance']);
 
-
 // API xử lý đơn xin nghỉ phép
 Route::get('donnghiphep', [LeaveRequestController::class, 'index']);
+Route::get('donnghiphep/so-ngay-nghi-con-lai', [LeaveRequestController::class, 'days_of_leave']);
+Route::get('donnghiphep/danh-sach-chi-tiet', [LeaveRequestController::class, 'list_leave_request']);
+Route::put('donnghiphep', [LeaveRequestController::class, 'update']);
+Route::get('leave-requests-log', [LeaveRequestController::class, 'show_log']);
+Route::post('leave-requests-log', [LeaveRequestController::class, 'create_log']);
