@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AttendanceResource extends JsonResource
@@ -14,13 +15,15 @@ class AttendanceResource extends JsonResource
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
-
         return [
-            // 'id' => $this->id,
-            // 'user_id' => $this->user_id,
-            // 'check_time' => $this->check_time->format('d/m/Y'),
-            'created_at' => $this->created_at->format('d/m/Y')
+            'employeeNo' => $this->employeeNo,
+            'name' => $this->name,
+            'department_id' => $this->department_id,
+            'date' => Carbon::parse($this->date)->format('d/m/Y'),
+            'check_in' => $this->check_in ? Carbon::parse($this->check_in)->format('H:i:s') : null,
+            'check_out' => $this->check_out ? Carbon::parse($this->check_out)->format('H:i:s') : null,
+            'image_in' => $this->image_in,
+            'image_out' => $this->image_out
         ];
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Attendance;
 use App\Models\User;
 use App\Models\UserLogEvent;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
@@ -59,7 +60,17 @@ class CameraService
         $limit = 30;
         $list_users_event = [];
 
-        $today = now('Asia/Ho_Chi_Minh')->format('Y-m-d');
+        $lastTime = DB::table('log_user_event')->max('time');
+
+        if (!$lastTime) {
+            $from = Carbon::now('Asia/Ho_Chi_Minh')->subDay();
+        } else {
+            // +1 giây để tránh trùng dữ liệu
+            $from = Carbon::parse($lastTime)->addSecond();
+        }
+
+        // Thời điểm hiện tại
+        $to = Carbon::now('Asia/Ho_Chi_Minh');
 
         do {
             $body = [
@@ -69,10 +80,10 @@ class CameraService
                     "maxResults" => $limit,
                     "major" => 5,
                     "minor" => 75,
-                    // 'startTime' => $today . 'T00:00:00+07:00',
-                    // 'endTime'   => $today . 'T23:59:59+07:00',
-                    "startTime" => "2026-02-12T00:00:00+07:00",
-                    "endTime" => "2026-02-12T23:59:59+07:00",
+                    // "startTime" => "2026-03-15T00:00:00+07:00",
+                    // "endTime" => "2026-03-16T23:59:59+07:00",
+                    "startTime" => $from->format('Y-m-d\TH:i:sP'),
+                    "endTime"   => $to->format('Y-m-d\TH:i:sP'),
                 ]
             ];
 
@@ -85,82 +96,92 @@ class CameraService
 
             $data = $response->json();
 
-            $users = $data['AcsEvent']['InfoList'];
+            $users = $data['AcsEvent']['InfoList'] ?? [];
 
             $list_users_event = array_merge($list_users_event, $users);
 
             $start += $limit;
         } while (count($users) === $limit);
 
-        // return view('welcome', compact('users'));
-        return $list_users_event;
+        $data = [];
+
+        foreach ($list_users_event as $user) {
+            $data[] = [
+                'employeeNo' => $user['employeeNoString'],
+                'name' => $user['name'],
+                'image' => $user['pictureURL'] ?? null,
+                'time' => $user['time'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        if (!empty($data)) {
+            DB::table('log_user_event')->insertOrIgnore($data);
+        }
     }
 
-    public function processAttendance()
+    public function test_attendance()
     {
-        $get_data = Storage::get("file_test/event.json");
+        $this->get_user();
 
-        $employee = json_decode($get_data, true);
+        $existingEmployeeNos = User::pluck('employeeNo')->toArray();
 
-        // Lấy dữ liệu chấm công từ API thứ 2
-        // $employee_data = $this->get_user();
+        $lastProcessedAt = Attendance::max('date');
 
-        // $employee = end($employee_data);
-        // dd($employee_data);
+        $attendanceData = UserLogEvent::selectRaw('
+            employeeNo,
+            name,
+            DATE(time) as date,
+            MIN(time) as check_in,
+            MAX(time) as check_out,
+            SUBSTRING_INDEX(GROUP_CONCAT(image ORDER BY time ASC), ",", 1) as check_in_image,
+            SUBSTRING_INDEX(GROUP_CONCAT(image ORDER BY time DESC), ",", 1) as check_out_image
+        ')
+            ->whereIn('employeeNo', $existingEmployeeNos)
+            ->whereDate('time', '>=', $lastProcessedAt)
+            ->groupBy('employeeNo', DB::raw('DATE(time)'), 'name')
+            ->orderBy('date', 'desc')
+            ->get();
 
-        $user = User::where('employeeNo', $employee['employeeNoString'])->first();
-
-        // Check nhân viên có tồn tại hay không
-        if (!$user) {
-            return [
-                'success' => false,
-                'message' => "Không tồn tại nhân viên!",
-                'status_code' => 404
-            ];
+        foreach ($attendanceData as $data) {
+            Attendance::updateOrCreate(
+                [
+                    'user_id' => $data->employeeNo,
+                    'date' => $data->date,
+                ],
+                [
+                    'check_in' => $data->check_in,
+                    'check_out' => $data->check_out,
+                    'image_in' => $data->check_in_image,
+                    'image_out' => $data->check_out_image
+                ]
+            );
         }
 
-        // Kiểm tra xem đã tồn tại trong bảng chấm công chưa
-        $checked = Attendance::where('user_id', $employee['employeeNoString'])
-            ->whereDate('check_time', today())
-            ->latest()
-            ->first();
+        // foreach ($attendanceData as $data) {
+        //     $checkInImage = UserLogEvent::where('employeeNo', $data->employeeNo)
+        //         ->whereDate('time', $data->date)
+        //         ->orderBy('time', 'asc')
+        //         ->value('image');
 
-        if (!$checked) {
-            $attendance = Attendance::create([
-                'user_id' => $user->employeeNo,
-                'check_time' => $employee['time'], // Phải lấy thời gian từ camera
-                'type' => 'in',
-                'image' => $employee['pictureURL']
-            ]);
+        //     $checkOutImage = UserLogEvent::where('employeeNo', $data->employeeNo)
+        //         ->whereDate('time', $data->date)
+        //         ->orderBy('time', 'desc')
+        //         ->value('image');
 
-            return [
-                'success' => true,
-                'message' => 'Check in thành công!',
-                'data' => $attendance,
-                'status_code' => 200
-            ];
-        }
-
-        if ($checked->type == 'in') {
-            $attendance = Attendance::create([
-                'user_id' => $user->employeeNo,
-                'check_time' => $employee['time'],
-                'type' => 'out',
-                'image' => $employee['pictureURL']
-            ]);
-
-            return [
-                'success' => true,
-                'message' => 'Check out thành công!',
-                'data' => $attendance,
-                'status_code' => 200
-            ];
-        }
-
-        return [
-            'success' => false,
-            'message' => 'Hết lượt chấm công hôm nay!',
-            'status_code' => 400
-        ];
+        //     Attendance::updateOrCreate(
+        //         [
+        //             'user_id' => $data->employeeNo,
+        //             'date' => $data->date,
+        //         ],
+        //         [
+        //             'check_in' => $data->check_in,
+        //             'check_out' => $data->check_out,
+        //             'image_in' => $checkInImage,
+        //             'image_out' => $checkOutImage,
+        //         ]
+        //     );
+        // }
     }
 }

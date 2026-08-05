@@ -39,6 +39,11 @@ class SyncCameraUsers extends Command
                 'employeeNo' => $user['employeeNo'],
                 'name' => $user['name'],
                 'department_id' => $user['groupId'],
+                'gender' => null,
+                'phone_number'  => null,
+                'bank_name' => null,
+                'bank_account_number' => null,
+                'status' => null,
                 'image' => $user['faceURL'] ?? null,
                 'created_at'    => now(),
                 'updated_at'    => now(),
@@ -48,7 +53,18 @@ class SyncCameraUsers extends Command
         DB::table('users')->upsert(
             $data,
             ['employeeNo'],
-            ['name', 'department_id', 'image', 'updated_at']
+            [
+                'name',
+                'department_id',
+                'gender',
+                'email',
+                'phone_number',
+                'bank_name',
+                'bank_account_number',
+                'status',
+                'image',
+                'updated_at'
+            ]
         );
 
         $this->info('Đồng bộ ' . count($data) . ' nhân viên thành công!');

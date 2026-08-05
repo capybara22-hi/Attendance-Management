@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RequestFillter;
+use App\Http\Requests\RequestUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -13,13 +16,37 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(RequestFillter $request)
     {
-        $users = User::with('attendances')->get();
+        $users = User::query();
+
+        if ($request->search) {
+            $users->where(function ($query) use ($request) {
+                $query->where('users.name', 'like', '%' . $request->search . '%')
+                    ->orWhere('users.employeeNo', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // Nếu không kiểm tra $request->status thì giả sử k có request nào, status sẽ có gtri là null, và null != 0 nên code vẫn có thể chạy
+        if ($request->status && $request->status != 0) {
+            $users->where('status', $request->status);
+        }
+
+        if ($request->department && $request->department != 0) {
+            $users->where('department_id', $request->department);
+        }
+
+        $data = $users->get();
+
+        $employee_in_department = User::select('department_id', DB::raw('count(*) as total'))
+            ->groupBy('department_id')
+            ->get();
 
         return response()->json([
             'success' => true,
-            'data' => $users
+            'data' => $data,
+            'totalUser' => $users->count(),
+            'user_in_department' => $employee_in_department
         ]);
     }
 
@@ -79,7 +106,7 @@ class UserController extends Controller
      * @param  string  $employeeNo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $employeeNo)
+    public function update(RequestUser $request, $employeeNo)
     {
         $user = User::where('employeeNo', $employeeNo)->first();
 
@@ -90,19 +117,20 @@ class UserController extends Controller
             ], 404);
         }
 
-        $validated = $request->validate([
-            'name' => 'sometimes|required|string|max:255',
-            'department_id' => 'nullable|integer',
-            'image' => 'nullable|string'
-        ]);
+        try {
+            $user->update($request->validated());
 
-        $user->update($validated);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Cập nhật nhân viên thành công!',
-            'data' => $user
-        ]);
+            return response()->json([
+                'success' => true,
+                'message' => "Cập nhật thành công!",
+                'data' => $user
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Đã xảy ra lỗi khi cập nhật: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     /**

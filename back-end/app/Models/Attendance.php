@@ -13,14 +13,14 @@ class Attendance extends Model
 
     protected $fillable = [
         'user_id',
+        'date',
         'check_in',
         'check_out',
-        'image'
+        'image_in',
+        'image_out'
     ];
 
-    protected $casts = [
-        'check_time' => 'datetime',
-    ];
+    // Không cast để tránh timezone conversion
 
     public function user()
     {

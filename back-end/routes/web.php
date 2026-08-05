@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\AttendanceController;
+use App\Http\Controllers\Api\LeaveRequestController;
+use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', [AttendanceController::class, 'processAttendance']);
+Route::get('/dangnhap', [LoginController::class, 'login']);
+Route::get('/dangky', [LoginController::class, 'register']);
 
-Route::get('/real-event', [AttendanceController::class, 'test_list_user']);
+Route::get('testdata', [LeaveRequestController::class, 'list_leave_request']);
+
+
+// Route::get('/', [AttendanceController::class, 'processAttendance']);
+// Route::get('/', [AttendanceController::class, 'viewAll']);
+// Route::get('/employee', [UserController::class, 'index'])->name('users.index');
+// Route::put('/employee/{employeeNo}', [UserController::class, 'update']);
