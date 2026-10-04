@@ -12,7 +12,7 @@ function MainLayout() {
                 <aside className="fixed">
                     <Sidebar></Sidebar>
                 </aside>
-                <main className="ml-[256px] flex-1 pt-4 pl-12 pr-12 overflow-auto">
+                <main className="ml-[256px] flex-1 pt-4 px-12 overflow-auto">
                     <Outlet />
                 </main>
             </div>

@@ -16,7 +16,7 @@ function DangNhap() {
     useEffect(() => {
         const existingUser = localStorage.getItem("auth_user") || sessionStorage.getItem("auth_user");
         if (existingUser) {
-            navigate("/bangchamcong");
+            navigate("/admin/bangchamcong", { replace: true });
         }
     }, [navigate]);
 
@@ -55,7 +55,7 @@ function DangNhap() {
                 localStorage.removeItem("auth_user");
             }
 
-            navigate("/bangchamcong");
+            navigate("/admin/bangchamcong", { replace: true });
         } catch (error) {
             setMessage("Tài khoản hoặc mật khẩu không đúng!");
         } finally {

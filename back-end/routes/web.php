@@ -27,3 +27,4 @@ Route::get('testdata', [LeaveRequestController::class, 'list_leave_request']);
 // Route::get('/', [AttendanceController::class, 'viewAll']);
 // Route::get('/employee', [UserController::class, 'index'])->name('users.index');
 // Route::put('/employee/{employeeNo}', [UserController::class, 'update']);
+ 

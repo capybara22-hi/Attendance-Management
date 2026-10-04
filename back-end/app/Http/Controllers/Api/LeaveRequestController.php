@@ -191,18 +191,21 @@ class LeaveRequestController extends Controller
         // $employeeNo = 'NV0025';
         $data = LeaveRequest::query()
             ->join('reason', 'reason.id', '=', 'leave_requests.reason')
+            ->join('status', 'status.id', '=', 'leave_requests.status')
             ->select(
                 'leave_requests.employeeNo',
+                DB::raw('CONCAT(leave_requests.start_date, " -> ", leave_requests.end_date) AS date_range'),
                 'leave_requests.number_date',
                 'leave_requests.reason',
                 'leave_requests.created_at',
-                'leave_requests.status',
-                'reason.reason'
+                'reason.reason',
+                'status.name_status'
             )
             ->where('leave_requests.employeeNo', '=', $request->employeeNo)
             ->get();
 
         return response()->json([
+            'total' => $data->count(),
             'data' => $data
         ]);
     }
