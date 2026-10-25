@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 const leaveData = [
   {
@@ -167,6 +167,8 @@ function getCalendarDays(monthDate) {
 
 function DonNghiPhepE() {
   const [calendarDate, setCalendarDate] = useState(new Date(2026, 9, 1));
+  const [close, setClose] = useState(false);
+
   const calendarDays = useMemo(
     () => getCalendarDays(calendarDate),
     [calendarDate],
@@ -185,7 +187,10 @@ function DonNghiPhepE() {
         <p className="text-[#4154F1] text-2xl font-semibold mb-4">
           Đơn nghỉ phép
         </p>
-        <button className="bg-[#4154F1] text-white hover:bg-blue-500   rounded-md px-2">
+        <button
+          className="bg-[#4154F1] text-white hover:bg-blue-500   rounded-md px-2"
+          onClick={() => setClose(true)}
+        >
           + Tạo đơn nghỉ phép
         </button>
       </div>
@@ -321,85 +326,99 @@ function DonNghiPhepE() {
           </div>
         </section>
       </div>
-      <div className="fixed bg-black bg-opacity-40 inset-0 z-40"></div>
-      <div className="bg-white fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-8 z-50 w-[1000px] h-[400px] border rounded">
-        <p className="text-xl font-medium text-center">Tạo đơn nghỉ phép</p>
-        <div className="flex mt-4">
-          <span className="font-semibold">Loại nghỉ: </span>
-          <div className="flex w-[80%] ml-3">
-            <label className="ml-4" htmlFor="">
-              <input className="mr-1" type="radio" name="" id="" />
-              Nghỉ ốm
-            </label>
-            <label className="ml-4" htmlFor="">
-              <input className="mr-1" type="radio" name="" id="" />
-              Khám bệnh
-            </label>
-            <label className="ml-4" htmlFor="">
-              <input className="mr-1" type="radio" name="" id="" />
-              Việc gia đình
-            </label>
-            <label className="ml-4" htmlFor="">
-              <input className="mr-1" type="radio" name="" id="" />
-              Công việc cá nhân
-            </label>
-            <label className="ml-4" htmlFor="">
-              <input className="mr-1" type="radio" name="" id="" />
-              Khác
-            </label>
-          </div>
-        </div>
-        <div className="flex mt-10 items-center">
-          <span className="font-semibold">Chọn ngày: </span>
-          <div className="ml-4">
-            <label className="mr-2">Từ ngày</label>
-            <input
-              type="date"
-              name=""
-              id=""
-              className="border rounded px-3 py-2"
-            />
-          </div>
-          <div className="ml-4">-</div>
-          <div className="ml-4">
-            <label className="mr-2">Đến ngày</label>
-            <input
-              type="date"
-              name=""
-              id=""
-              className="border rounded px-3 py-2"
-            />
-          </div>
-          <div className="ml-10">
-            Số ngày{" "}
-            <input
-              type="text"
-              name=""
-              id=""
-              readOnly
-              className="bg-gray-100 text-gray-500 cursor-default border w-14 rounded px-3 py-2 ml-2 outline-none"
-            />
-          </div>
-        </div>
 
-        <div className="flex mt-10">
-          <span className="font-semibold">Lý do: </span>
-          <textarea
-            placeholder="Nhập lý do..."
-            rows={4}
-            className="w-[80%] ml-4 px-3 py-2 border border-gray-300 rounded-lg outline-none resize-none focus:border-blue-500"
-          ></textarea>
-        </div>
+      {/* Tạo đơn nghỉ phép */}
+      {close && (
+        <>
+          <div className="fixed bg-black bg-opacity-40 inset-0 z-40" onClick={() => setClose(false)}></div>
+          <div className="bg-white fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-4 z-50 w-[1000px] border rounded">
+            <button
+              className="float-right" 
+              onClick={() => {
+                setClose(false);
+              }}
+            >
+              <X></X>
+            </button>
+            <p className="text-xl font-medium text-center">Tạo đơn nghỉ phép</p>
+            <div className="flex mt-8">
+              <span className="font-semibold">Loại nghỉ: </span>
+              <div className="flex w-[80%] ml-3">
+                <label className="ml-4" htmlFor="">
+                  <input className="mr-1" type="radio" name="" id="" />
+                  Nghỉ ốm
+                </label>
+                <label className="ml-4" htmlFor="">
+                  <input className="mr-1" type="radio" name="" id="" />
+                  Khám bệnh
+                </label>
+                <label className="ml-4" htmlFor="">
+                  <input className="mr-1" type="radio" name="" id="" />
+                  Việc gia đình
+                </label>
+                <label className="ml-4" htmlFor="">
+                  <input className="mr-1" type="radio" name="" id="" />
+                  Công việc cá nhân
+                </label>
+                <label className="ml-4" htmlFor="">
+                  <input className="mr-1" type="radio" name="" id="" />
+                  Khác
+                </label>
+              </div>
+            </div>
+            <div className="flex mt-10 items-center">
+              <span className="font-semibold">Chọn ngày: </span>
+              <div className="ml-4">
+                <label className="mr-2">Từ ngày</label>
+                <input
+                  type="date"
+                  name=""
+                  id=""
+                  className="border rounded px-3 py-2"
+                />
+              </div>
+              <div className="ml-4">-</div>
+              <div className="ml-4">
+                <label className="mr-2">Đến ngày</label>
+                <input
+                  type="date"
+                  name=""
+                  id=""
+                  className="border rounded px-3 py-2"
+                />
+              </div>
+              <div className="ml-10">
+                Số ngày{" "}
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  readOnly
+                  className="bg-gray-100 text-gray-500 cursor-default border w-14 rounded px-3 py-2 ml-2 outline-none"
+                />
+              </div>
+            </div>
 
-        <div className="flex justify-end mt-6">
-          <button className="border-2 text-black px-4 py-2 mr-2 rounded-md">
-            Hủy
-          </button>
-          <button className="bg-[#4154F1] px-4 py-2 text-white hover:bg-blue-500 rounded-md">
-            Lưu
-          </button>
-        </div>
-      </div>
+            <div className="flex mt-10">
+              <span className="font-semibold">Lý do: </span>
+              <textarea
+                placeholder="Nhập lý do..."
+                rows={4}
+                className="w-[80%] ml-4 px-3 py-2 border border-gray-300 rounded-lg outline-none resize-none focus:border-blue-500"
+              ></textarea>
+            </div>
+
+            <div className="flex justify-end mt-6">
+              <button className="border-2 text-black px-4 py-2 mr-2 rounded-md" onClick={() => setClose(false)}>
+                Hủy
+              </button>
+              <button className="bg-[#4154F1] px-4 py-2 text-white hover:bg-blue-500 rounded-md" onClick={() => setClose(false)}>
+                Lưu
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }
