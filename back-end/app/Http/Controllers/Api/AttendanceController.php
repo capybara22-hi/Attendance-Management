@@ -140,7 +140,7 @@ class AttendanceController extends Controller
     {
         $find_employee = Attendance::where('user_id', $id)->get();
 
-        if (!$find_employee) {
+        if ($find_employee->isEmpty()) {
             return response()->json(false);
         }
 

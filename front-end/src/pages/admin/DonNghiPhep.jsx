@@ -161,7 +161,7 @@ function DonNghiPhep() {
         fetch(`http://127.0.0.1:8000/api/donnghiphep/danh-sach-chi-tiet?employeeNo=${employeeNo.employeeNo}`)
             .then((res) => res.json())
             .then((data) => {
-                setInfor(data.data);
+                setInfor(data);
                 console.log(data.data);
             })
     }, [employeeNo]);
@@ -386,7 +386,7 @@ function DonNghiPhep() {
                         <div className="my-6">
                             <p><span className="font-bold">Mã nhân viên:</span> {employeeNo.employeeNo}</p>
                             <p><span className="font-bold">Họ và tên:</span> {employeeNo.name}</p>
-                            <p><span className="font-bold">Tổng số đơn nghỉ phép:</span> {infor.total}</p>
+                            <p><span className="font-bold">Tổng số đơn nghỉ phép:</span> {infor?.total ?? 0}</p>
                         </div>
                         <table className="w-full text-center rounded-md">
                             <thead>
@@ -400,14 +400,14 @@ function DonNghiPhep() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {infor.map((item, index) => (
-                                    <tr className="flex text-center">
-                                        <td className="p-2 w-[40px] border">1</td>
-                                        <td className="p-2 flex-1 border">Null</td>
+                                {(infor?.data || []).map((item, index) => (
+                                    <tr className="flex text-center" key={item.id ?? index}>
+                                        <td className="p-2 w-[40px] border">{index + 1}</td>
+                                        <td className="p-2 flex-1 border">{item.date_range}</td>
                                         <td className="p-2 flex-1 border">{item.number_date}</td>
                                         <td className="p-2 flex-1 border">{item.reason}</td>
                                         <td className="p-2 flex-1 border">{new Date(item.created_at).toLocaleDateString("vi-VN")}</td>
-                                        <td className="p-2 flex-1 border text-green-500 italic">{item.status}</td>
+                                        <td className={`p-2 flex-1 border text-green-500 italic ${item.name_status === "Đồng ý" ? "text-green-500" : "text-red-500"}`}>{item.name_status}</td>
                                     </tr>
                                 ))}
                             </tbody>

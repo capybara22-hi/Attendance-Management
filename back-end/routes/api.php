@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AttendanceController;
+use App\Http\Controllers\Api\Employee\AttendanceEController;
 use App\Http\Controllers\Api\LeaveRequestController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\UserController;
@@ -23,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // API đăng ký, đăng nhập
-Route::post('/dangnhap', [LoginController::class, 'login']);
+Route::post('/dangnhap', [LoginController::class, 'login'])->name('login');
 Route::post('/dangky', [LoginController::class, 'register']);
 
 // API quản lý nhân viên
@@ -44,3 +45,7 @@ Route::get('donnghiphep/danh-sach-chi-tiet', [LeaveRequestController::class, 'li
 Route::put('donnghiphep', [LeaveRequestController::class, 'update']);
 Route::get('leave-requests-log', [LeaveRequestController::class, 'show_log']);
 Route::post('leave-requests-log', [LeaveRequestController::class, 'create_log']);
+
+// API phía nhân viên
+Route::get('chamcong/{id}', [AttendanceEController::class, 'index']);
+
