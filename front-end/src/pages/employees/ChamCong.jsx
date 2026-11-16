@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 const mockData = [
   {
     stt: 1,
@@ -37,6 +39,34 @@ const mockData = [
 ];
 
 function ChamCong() {
+  const [attendance, setAttendance] = useState([]);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [status, setStatus] = useState("");
+
+  const account = JSON.parse(
+    localStorage.getItem("auth_user") || sessionStorage.getItem("auth_user"),
+  );
+
+  useEffect(() => {
+    const fetchAttendance = async () => {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/chamcong/${account.employeeNo}?start_date=${startDate}&end_date=${endDate}`,
+      );
+
+      const data = await response.json();
+
+      setAttendance(data.kq);
+    };
+
+    const timer = setTimeout(fetchAttendance, 1000);
+
+    return () => clearTimeout(timer);
+  }, [startDate, endDate]);
+
+  // console.log(attendance);
+  console.log(startDate);
+
   return (
     <>
       <div className="flex justify-between">
@@ -72,7 +102,7 @@ function ChamCong() {
         </div>
       </div>
 
-      <div className="flex items-center bg-white w-[100%] p-4 rounded-md">
+      <div className="flex items-center justify-center bg-white w-[100%] p-4 rounded-md">
         {/* <div className="flex border rounded">
           <input
             type="text"
@@ -87,6 +117,7 @@ function ChamCong() {
             name=""
             id=""
             className="border rounded px-3 py-2"
+            onChange={(e) => setStartDate(e.target.value)}
           />
         </div>
         <div className="ml-4">-</div>
@@ -97,9 +128,10 @@ function ChamCong() {
             name=""
             id=""
             className="border rounded px-3 py-2"
+            onChange={(e) => setEndDate(e.target.value)}
           />
         </div>
-        <div className="ml-10">
+        {/* <div className="ml-10">
           <label htmlFor="">Trạng thái</label>
           <select
             name=""
@@ -112,7 +144,7 @@ function ChamCong() {
             <option value="">Về sớm</option>
             <option value="">Về muộn</option>
           </select>
-        </div>
+        </div> */}
       </div>
       <div className="w-full bg-white p-4 mt-6 rounded-md">
         <table className="w-full text-center rounded-md">
@@ -122,26 +154,30 @@ function ChamCong() {
               <td className="p-2">Mã nhân viên</td>
               <td className="p-2">Ngày</td>
               <td className="p-2">Giờ vào</td>
-              <td className="p-2">Trạng thái vào</td>
+              {/* <td className="p-2">Trạng thái vào</td> */}
               <td className="p-2">Giờ ra</td>
-              <td className="p-2">Trạng thái ra</td>
+              {/* <td className="p-2">Trạng thái ra</td> */}
             </tr>
           </thead>
-
-          {mockData.map((emp) => {
-            return (
-              <tr>
-                <td className="p-2 border">{emp.stt}</td>
-                <td className="p-2 border">{emp.maNhanVien}</td>
-                <td className="p-2 border">{emp.ngay}</td>
-                <td className="p-2 border">{emp.gioVao}</td>
-                <td className="p-2 border">Đúng giờ</td>
-                <td className="p-2 border">{emp.gioRa}</td>
-                <td className="p-2 border">Về sớm</td>
-              </tr>
-            );
-          })}
+          <tbody>
+            {attendance.map((emp, index) => {
+              return (
+                <tr>
+                  <td className="p-2 border">{index + 1}</td>
+                  <td className="p-2 border">{emp.user_id}</td>
+                  <td className="p-2 border">{emp.date}</td>
+                  <td className="p-2 border">{emp.check_in}</td>
+                  {/* <td className="p-2 border">Đúng giờ</td> */}
+                  <td className="p-2 border">{emp.check_out}</td>
+                  {/* <td className="p-2 border">Về sớm</td> */}
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
+        {attendance.length === 0 && (
+          <p className="text-center text-gray-500 py-4">Không có dữ liệu</p>
+        )}
       </div>
     </>
   );
