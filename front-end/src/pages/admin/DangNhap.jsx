@@ -161,10 +161,10 @@ function DangNhap() {
                                 </button>
 
                                 {/* Sign Up Link */}
-                                <div className="text-center pt-4">
+                                {/* <div className="text-center pt-4">
                                     <span className="text-gray-600 text-sm">Chưa có tài khoản? </span>
                                     <Link to="/dangky" className="text-blue-600 font-semibold hover:text-blue-800 transition-colors text-sm">Đăng ký</Link>
-                                </div>
+                                </div> */}
                             </form>
 
                             {/* Divider */}

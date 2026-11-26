@@ -40,13 +40,23 @@ const mockData = [
 
 function ChamCong() {
   const [attendance, setAttendance] = useState([]);
+  const [workingDays, setWorkingDays] = useState(0);
+  const [leaveDays, setLeaveDays] = useState(0);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [status, setStatus] = useState("");
+  const [moy, setMoy] = useState(true);
 
   const account = JSON.parse(
     localStorage.getItem("auth_user") || sessionStorage.getItem("auth_user"),
   );
+
+  const date = new Date();
+
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  console.log(month);
 
   useEffect(() => {
     const fetchAttendance = async () => {
@@ -57,6 +67,8 @@ function ChamCong() {
       const data = await response.json();
 
       setAttendance(data.kq);
+      setWorkingDays(data.count_attendance);
+      setLeaveDays(data.leaveDay);
     };
 
     const timer = setTimeout(fetchAttendance, 1000);
@@ -75,31 +87,40 @@ function ChamCong() {
         </p>
       </div>
 
-      <div className="flex flex-wrap gap-4 justify-between mb-4">
-        <div className="flex items-center justify-center bg-white text-center w-[48%] h-[100px] rounded-md">
+      <div className="grid grid-cols-2 gap-4 p-4 bg-white justify-between mb-4">
+        {/* <div className="col-span-2 flex justify-between">
+          <div>
+            <p className="text-2xl font-semibold">{moy ? `Tháng ${month}` : `Năm ${year}`}</p>
+          </div>
+          <div className="">
+            <span className={`${moy ? "bg-white border shadow-md" : ""} rounded-2xl px-3 py-1 cursor-pointer`} onClick={() => setMoy(true)}>Tháng</span>
+            <span className={`${moy ? "" : "bg-white border shadow-md"} rounded-2xl px-3 py-1 cursor-pointer`} onClick={() => setMoy(false)}>Năm</span>
+          </div>
+        </div> */}
+        <div className="flex items-center justify-center bg-white text-center shadow-md border border-gray-100  h-[100px] rounded-md">
           <div>
             <h2 className="text-xl mb-2 font-semibold">Số ngày làm việc</h2>
-            <p className="text-2xl">16</p>
+            <p className="text-2xl">{workingDays}</p>
           </div>
         </div>
-        <div className="flex items-center justify-center bg-white text-center w-[48%] h-[100px] rounded-md">
+        <div className="flex items-center justify-center bg-white text-center shadow-md border border-gray-100  h-[100px] rounded-md">
           <div>
-            <h2 className="text-xl mb-2 font-semibold">Số ngày nghỉ</h2>
-            <p className="text-2xl">16</p>
+            <h2 className="text-xl mb-2 font-semibold">Số ngày nghỉ phép</h2>
+            <p className="text-2xl">{leaveDays}</p>
           </div>
         </div>
-        <div className="flex items-center justify-center bg-white text-center w-[48%] h-[100px] rounded-md">
-          <div>
-            <h2 className="text-xl mb-2 font-semibold">Đi muộn</h2>
-            <p className="text-2xl">16</p>
-          </div>
-        </div>
-        <div className="flex items-center justify-center bg-white text-center w-[48%] h-[100px] rounded-md">
+        {/* <div className="flex items-center justify-center bg-white text-center shadow-md border border-gray-100  h-[100px] rounded-md">
           <div>
             <h2 className="text-xl mb-2 font-semibold">Đúng giờ</h2>
             <p className="text-2xl">16</p>
           </div>
         </div>
+        <div className="flex items-center justify-center bg-white text-center shadow-md border border-gray-100  h-[100px] rounded-md">
+          <div>
+            <h2 className="text-xl mb-2 font-semibold">Đi muộn</h2>
+            <p className="text-2xl">16</p>
+          </div>
+        </div> */}
       </div>
 
       <div className="flex items-center justify-center bg-white w-[100%] p-4 rounded-md">

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\Employee\AttendanceEController;
 use App\Http\Controllers\Api\LeaveRequestController;
+use App\Http\Controllers\Api\Employee\LeaveRequestEController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -48,4 +49,6 @@ Route::post('leave-requests-log', [LeaveRequestController::class, 'create_log'])
 
 // API phía nhân viên
 Route::get('chamcong/{id}', [AttendanceEController::class, 'index']);
+Route::get('donnghiphep/{id}', [LeaveRequestEController::class, 'index']);
+Route::post('donnghiphep/{id}', [LeaveRequestEController::class, 'createLeaveRequest']);
 

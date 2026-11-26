@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Employee;
 
 use App\Models\Attendance;
-
+use App\Models\LeaveRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -28,10 +28,16 @@ class AttendanceEController extends Controller
         //     return response()->json([ 'message' => "Khong tim thay du lieu!" ], 404);
         // }
 
+        $workingDays = Attendance::where('user_id', $id)->count('date');
+
+        $leaveDays = LeaveRequest::where('employeeNo', $id)
+            ->where('status', '1')
+            ->sum('number_date');
+
         return response()->json([
             'kq' =>  $data,
-            'sd' => $request->start_date,
-            'sd1' => $request->end_date
+            'count_attendance' => $workingDays,
+            'leaveDay' => $leaveDays
         ], 200);
     }
 }

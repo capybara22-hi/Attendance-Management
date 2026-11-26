@@ -24,4 +24,9 @@ class LeaveRequest extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function reasonDetail()
+    {
+        return $this->belongsTo(Reason::class, 'reason', 'id');
+    }
 }

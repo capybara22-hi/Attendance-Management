@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 const leaveData = [
@@ -168,6 +168,15 @@ function getCalendarDays(monthDate) {
 function DonNghiPhepE() {
   const [calendarDate, setCalendarDate] = useState(new Date(2026, 9, 1));
   const [close, setClose] = useState(false);
+  const [leaveDay, setLeaveDay] = useState([]);
+  const [countLeave, setCountLeave] = useState(0);
+
+  const [reasons, setReasons] = useState([]);
+  const [selectedReason, setSelectedReason] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [numberDate, setNumberDate] = useState(0);
+  const [reasonText, setReasonText] = useState("");
 
   const calendarDays = useMemo(
     () => getCalendarDays(calendarDate),
@@ -179,6 +188,54 @@ function DonNghiPhepE() {
       (currentDate) =>
         new Date(currentDate.getFullYear(), currentDate.getMonth() + amount, 1),
     );
+  };
+
+  const account = JSON.parse(
+    localStorage.getItem("auth_user") || sessionStorage.getItem("auth_user"),
+  );
+
+  useEffect(() => {
+    const fetchLeaveRequest = async () => {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/donnghiphep/${account.employeeNo}`,
+      );
+      const data = await response.json();
+
+      setLeaveDay(data.list_leaveDay);
+      setCountLeave(data.count_leave);
+    };
+
+    fetchLeaveRequest();
+  }, []);
+
+  const createLeaveRequest = async () => {
+    const response = await fetch(`http://127.0.0.1:8000/api/donnghiphep/${account.employeeNo}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        employeeNo: account.employeeNo,
+        start_date: startDate,
+        end_date: endDate,
+        // number_date: numberDate,
+        reason: selectedReason,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert("Tạo đơn thành công!");
+
+      setClose(false);
+
+      // Gọi lại API GET để cập nhật danh sách
+      await fetchLeaveRequest();
+    } else {
+      alert(data.message || "Tạo đơn thất bại!");
+    }
   };
 
   return (
@@ -202,11 +259,11 @@ function DonNghiPhepE() {
         </div>
         <div className="flex justify-between w-[25%] h-20 bg-white px-4 py-2 font-semibold rounded-md">
           <p className="text-lg">Đã dùng</p>
-          <p className="flex items-end text-2xl">3</p>
+          <p className="flex items-end text-2xl">{countLeave}</p>
         </div>
         <div className="flex justify-between w-[25%] h-20 bg-white px-4 py-2 font-semibold rounded-md">
           <p className="text-lg">Còn lại</p>
-          <p className="flex items-end text-2xl">9</p>
+          <p className="flex items-end text-2xl">{12 - countLeave}</p>
         </div>
         <div className="flex justify-between w-[25%] h-20 bg-white px-4 py-2 font-semibold rounded-md">
           <p className="text-lg">Chờ duyệt</p>
@@ -227,14 +284,24 @@ function DonNghiPhepE() {
               </tr>
             </thead>
             <tbody>
-              {leaveData.map((data) => {
+              {leaveDay.map((data, index) => {
                 return (
                   <tr className="border-b-2">
-                    <td className="p-2">{data.id}</td>
-                    <td className="p-2">{data.date}</td>
-                    <td className="p-2">{data.days}</td>
-                    <td className="p-2">{data.reason}</td>
-                    <td className="p-2">{data.status}</td>
+                    <td className="p-2">{index + 1}</td>
+                    <td className="p-2">
+                      {data.start_date != data.end_date
+                        ? `${data.start_date} -> ${data.end_date}`
+                        : data.start_date}
+                    </td>
+                    <td className="p-2">{data.number_date}</td>
+                    <td className="p-2">{data.reason_detail.reason}</td>
+                    <td className="p-2">
+                      {data.status === 1
+                        ? "Đã duyệt"
+                        : data.status === 0
+                          ? "Từ chối"
+                          : "Chờ duyệt"}
+                    </td>
                   </tr>
                 );
               })}
@@ -330,10 +397,13 @@ function DonNghiPhepE() {
       {/* Tạo đơn nghỉ phép */}
       {close && (
         <>
-          <div className="fixed bg-black bg-opacity-40 inset-0 z-40" onClick={() => setClose(false)}></div>
+          <div
+            className="fixed bg-black bg-opacity-40 inset-0 z-40"
+            onClick={() => setClose(false)}
+          ></div>
           <div className="bg-white fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-4 z-50 w-[1000px] border rounded">
             <button
-              className="float-right" 
+              className="float-right"
               onClick={() => {
                 setClose(false);
               }}
@@ -343,7 +413,7 @@ function DonNghiPhepE() {
             <p className="text-xl font-medium text-center">Tạo đơn nghỉ phép</p>
             <div className="flex mt-8">
               <span className="font-semibold">Loại nghỉ: </span>
-              <div className="flex w-[80%] ml-3">
+              {/* <div className="flex w-[80%] ml-3">
                 <label className="ml-4" htmlFor="">
                   <input className="mr-1" type="radio" name="" id="" />
                   Nghỉ ốm
@@ -364,6 +434,27 @@ function DonNghiPhepE() {
                   <input className="mr-1" type="radio" name="" id="" />
                   Khác
                 </label>
+              </div> */}
+              <div className="flex w-[80%] ml-3">
+                {[
+                  { id: 1, label: "Nghỉ ốm" },
+                  { id: 2, label: "Khám bệnh" },
+                  { id: 3, label: "Việc gia đình" },
+                  { id: 4, label: "Công việc cá nhân" },
+                  { id: 5, label: "Khác" },
+                ].map((item) => (
+                  <label className="ml-4" key={item.id}>
+                    <input
+                      className="mr-1"
+                      type="radio"
+                      name="reason"
+                      value={item.id}
+                      checked={selectedReason === item.id}
+                      onChange={() => setSelectedReason(item.id)}
+                    />
+                    {item.label}
+                  </label>
+                ))}
               </div>
             </div>
             <div className="flex mt-10 items-center">
@@ -374,6 +465,8 @@ function DonNghiPhepE() {
                   type="date"
                   name=""
                   id=""
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
                   className="border rounded px-3 py-2"
                 />
               </div>
@@ -384,10 +477,12 @@ function DonNghiPhepE() {
                   type="date"
                   name=""
                   id=""
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
                   className="border rounded px-3 py-2"
                 />
               </div>
-              <div className="ml-10">
+              {/* <div className="ml-10">
                 Số ngày{" "}
                 <input
                   type="text"
@@ -396,23 +491,31 @@ function DonNghiPhepE() {
                   readOnly
                   className="bg-gray-100 text-gray-500 cursor-default border w-14 rounded px-3 py-2 ml-2 outline-none"
                 />
-              </div>
+              </div> */}
             </div>
 
             <div className="flex mt-10">
               <span className="font-semibold">Lý do: </span>
               <textarea
                 placeholder="Nhập lý do..."
+                value={reasonText}
+                onChange={(e) => setReasonText(e.target.value)}
                 rows={4}
                 className="w-[80%] ml-4 px-3 py-2 border border-gray-300 rounded-lg outline-none resize-none focus:border-blue-500"
               ></textarea>
             </div>
 
             <div className="flex justify-end mt-6">
-              <button className="border-2 text-black px-4 py-2 mr-2 rounded-md" onClick={() => setClose(false)}>
+              <button
+                className="border-2 text-black px-4 py-2 mr-2 rounded-md"
+                onClick={() => setClose(false)}
+              >
                 Hủy
               </button>
-              <button className="bg-[#4154F1] px-4 py-2 text-white hover:bg-blue-500 rounded-md" onClick={() => setClose(false)}>
+              <button
+                className="bg-[#4154F1] px-4 py-2 text-white hover:bg-blue-500 rounded-md"
+                onClick={createLeaveRequest}
+              >
                 Lưu
               </button>
             </div>
